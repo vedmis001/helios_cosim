@@ -1,0 +1,28 @@
+{
+    "_comment_1": "HELIOS Co-Simulation Runner",
+    "_comment_2": "Run with: helics run --path=helios_runner.json",
+    "_comment_3": "This file starts the broker AND both federates simultaneously",
+    "_boundary":  "Bus 5385, DALLAS 3 1, 161kV, ACTIVSg2000 Texas grid",
+
+    "broker": true,
+    "broker_name": "helios_broker",
+    "loglevel": "summary",
+    "logfile":  "helios_broker.log",
+
+    "federates": [
+        {
+            "name": "psse_federate",
+            "exec": "python helios_psse_federate.py",
+            "directory": ".",
+            "wait_for_completion": true,
+            "log_level": "summary"
+        },
+        {
+            "name": "pscad_federate",
+            "exec": "python helios_pscad_federate_v2.py",
+            "directory": ".",
+            "wait_for_completion": true,
+            "log_level": "summary"
+        }
+    ]
+}

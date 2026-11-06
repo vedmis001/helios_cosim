@@ -1,0 +1,14 @@
+import numpy as np
+
+# Define the numerical Jacobian matrix
+J = np.array([
+    [-0.001,  0.003, -0.001, -0.001],
+    [-0.001,  0.001,  0.000,  0.000],
+    [ 0.000,  0.001,  0.000, -0.001],
+    [ 0.000, -0.001,  0.001,  0.000]
+])
+
+# Calculate the determinant
+det = np.linalg.det(J)
+print(f"Determinant: {det}") 
+# Output: Determinant: 0.0
