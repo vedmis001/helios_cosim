@@ -41,10 +41,11 @@ log = logging.getLogger(__name__)
 # ─── Configuration ────────────────────────────────────────────────────────────
 
 # File paths -- update if files are in a different directory
-PSSE_SAV_FILE = r"C:\Users\vamisra\Downloads\ACTIVSg2000\ACTIVSg2000_HELIOS_DC150MW.sav"
-PSSE_SNP_FILE = r"C:\Users\vamisra\Downloads\ACTIVSg2000\ACTIVSg2000_HELIOS_t0.snp"
-PSSE_DYR_FILE = r"C:\Users\vamisra\Downloads\ACTIVSg2000\ACTIVSg2000_dynamics.dyr"
+PSSE_SAV_FILE = r"C:\Users\vamisra\HELIOS\psse\ACTIVSg2000_HELIOS_DC150MW.sav"
+PSSE_SNP_FILE = r"C:\Users\vamisra\HELIOS\psse\ACTIVSg2000_HELIOS_t0.snp"
+PSSE_DYR_FILE = r"C:\Users\vamisra\Documents\ACTIVSg2000_dynamics.dyr"
 OUTPUT_FILE   = "helios_psse_channels.out"
+
 
 # Boundary bus — Bus 5385, DALLAS 3 1, 161kV
 BOUNDARY_BUS  = 5385
