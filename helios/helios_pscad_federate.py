@@ -28,7 +28,7 @@ log = logging.getLogger(__name__)
 
 # PSCAD project settings
 PSCAD_PROJECT_NAME = "HELIOS_datacenter"
-PSCAD_CASE_NAME    = "TestCase_VoltageSag_Average"
+PSCAD_CASE_NAME    = "TestCase_VoltageSag_Average1"
 
 # Boundary source component path in PSCAD canvas
 # Update to match the exact component name in your PSCAD model
