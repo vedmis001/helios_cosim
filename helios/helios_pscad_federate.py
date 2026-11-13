@@ -6,322 +6,384 @@ DOE Datacenter EMT Model (Electromagnetic Transient Side)
 
 Boundary Bus:  5385  DALLAS 3 1  161.0 kV
 Pre-disturbance: V = 1.00559 pu,  angle = -72.489 deg
+
+Supports:
+  - Legacy fixed-interval mode (EXCHANGE_INTERVAL = 10ms)
+  - Adaptive variable-interval + surrogate-bypass mode via HELICS
+    subscriptions `psse_federate/next_dt` and `psse_federate/skip_emt`
+  - Both `zmq` (multi-process) and `inproc` (single-process runner) cores
 ═══════════════════════════════════════════════════════════════════════════════
 """
 
 import helics as h
 import logging
 import math
+import os
+import socket
+import struct
 import time
+from typing import Optional, Tuple
 
 logging.basicConfig(
-    level    = logging.INFO,
-    format   = "%(asctime)s [PSCAD] %(message)s",
-    handlers = [
+    level=logging.INFO,
+    format="%(asctime)s [PSCAD] %(message)s",
+    handlers=[
         logging.FileHandler("helios_pscad.log"),
-        logging.StreamHandler()
-    ]
+        logging.StreamHandler(),
+    ],
 )
 log = logging.getLogger(__name__)
 
 # ─── Configuration ────────────────────────────────────────────────────────────
 
-# PSCAD project settings
 PSCAD_PROJECT_NAME = "HELIOS_datacenter"
-PSCAD_CASE_NAME    = "TestCase_VoltageSag_Average1"
-
-# Boundary source component path in PSCAD canvas
-# Update to match the exact component name in your PSCAD model
+PSCAD_CASE_NAME    = "HELIOS_datacenter"
 PSCAD_VSOURCE_PATH = "Main:BoundaryVoltageSource"
 
-# Output channel names as defined by E/O blocks in PSCAD
-PSCAD_OUTPUT_P    = "P_PCC"     # active power at PCC, MW
-PSCAD_OUTPUT_Q    = "Q_PCC"     # reactive power at PCC, MVAR
+PSCAD_OUTPUT_P     = "P_PCC"
+PSCAD_OUTPUT_Q     = "Q_PCC"
 
-# Boundary bus electrical parameters
-V_BASE_KV         = 161.0       # kV, boundary bus base voltage
-S_BASE_MVA        = 100.0       # MVA, system base
+V_BASE_KV          = 161.0
+S_BASE_MVA         = 100.0
 
-# Pre-disturbance initial conditions from PSS/E power flow
-V_INIT_PU         = 1.00559     # pu
-V_INIT_DEG        = -72.489     # degrees
+V_INIT_PU          = 1.00559
+V_INIT_DEG         = -72.489
 
-# HELICS timing
-# NOTE: PSCAD's internal EMT timestep is 0.5us
-# We do NOT match HELICS exchange period to PSCAD's timestep --
-# that would cause millions of HELICS exchanges per second of simulation
-# and the communication overhead would dwarf the actual computation.
-# Instead we match the HELICS period to PSS/E's transient stability timestep (10ms)
-# PSCAD runs freely at 0.5us between each 10ms HELICS exchange
-EXCHANGE_INTERVAL = 10e-3       # 10ms -- match PSS/E TS timestep, NOT PSCAD EMT step
-TOTAL_SIM_TIME    = 10.0        # seconds -- total co-simulation duration
+EXCHANGE_INTERVAL  = float(os.environ.get("HELIOS_EXCHANGE_INTERVAL", "10e-3"))
+TOTAL_SIM_TIME     = float(os.environ.get("HELIOS_TOTAL_SIM_TIME", "10.0"))
+ADAPTIVE_STEPPING  = os.environ.get("HELIOS_ADAPTIVE_STEPPING", "1") == "1"
+
+
+def stub_step_datacenter(
+    stub_state: dict,
+    v_mag_pu: float,
+    target_time_s: float,
+    rated_p_mw: float,
+    rated_q_mvar: float,
+    profile: str,
+    simulate_delay: bool = True,
+):
+    """Dynamic datacenter/converter load response when mhi.pscad is unavailable."""
+    dt = max(1e-4, target_time_s - stub_state["last_t"])
+    stub_state["last_t"] = target_time_s
+
+    if profile == "constant_power":
+        p_target = rated_p_mw * min(1.0, v_mag_pu / 0.70)
+        q_target = rated_q_mvar
+        tau = 0.015
+    elif profile == "inverter_gfl":
+        v_dep = max(0.0, 0.92 - v_mag_pu)
+        p_target = rated_p_mw * min(1.05, (v_mag_pu / V_INIT_PU) ** 0.6)
+        q_target = rated_q_mvar - 180.0 * v_dep
+        tau = 0.020
+    else:
+        if v_mag_pu < 0.88:
+            scale = max(0.25, (v_mag_pu / 0.88) ** 1.4)
+            p_target = rated_p_mw * scale
+            q_target = rated_q_mvar * scale + 25.0 * (0.88 - v_mag_pu)
+        else:
+            p_target = rated_p_mw * (1.0 + 0.08 * (v_mag_pu - V_INIT_PU))
+            q_target = rated_q_mvar * (v_mag_pu / V_INIT_PU) ** 1.5
+        tau = 0.025
+
+    alpha = 1.0 - math.exp(-dt / tau)
+    stub_state["p_mw"] += alpha * (p_target - stub_state["p_mw"])
+    stub_state["q_mvar"] += alpha * (q_target - stub_state["q_mvar"])
+    return stub_state["p_mw"], stub_state["q_mvar"]
+
 
 # ─── PSCAD Automation Interface ──────────────────────────────────────────────
 
 def connect_pscad():
+    """ComFab co-simulation uses direct TCP socket (Client ID 40001).
+    Bypasses mhi.pscad COM automation to prevent IPC connection hangs.
     """
-    Connect to a running PSCAD instance.
-    PSCAD must be open with the HELIOS project loaded before
-    starting the co-simulation.
+    log.info("ComFab mode active: direct high-speed socket on port 40001 (Application_1)")
+    return None, None
+
+
+class PSCADSocketBridge:
     """
-    log.info("Connecting to PSCAD automation interface...")
-    try:
-        import mhi.pscad
-        pscad = mhi.pscad.connect()
+    TCP Socket Bridge to PSCAD Application_1 co-simulation component.
+    Client ID 40001 uses port 40001.
+    Receives [P, Q] (2 doubles = 16 bytes) from PSCAD Power Meter.
+    Sends [Phase_deg, V_kV] (2 doubles = 16 bytes) to PSCAD RRL Source.
+    """
+    def __init__(self, port: int = 40001, host: str = "127.0.0.1"):
+        self.port = port
+        self.host = host
+        self.server_sock = None
+        self.client_sock = None
+        self.connected = False
+        self.is_server = False
 
-        projects = {p.name: p for p in pscad.projects()}
-        if PSCAD_PROJECT_NAME not in projects:
-            log.info(f"  Loading project: {PSCAD_PROJECT_NAME}")
-            pscad.load(f"{PSCAD_PROJECT_NAME}.pscx")
+    def start(self):
+        """Listen for PSCAD Application_1 (Client ID 40001) connection."""
+        try:
+            self.server_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            self.server_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            self.server_sock.bind((self.host, self.port))
+            self.server_sock.listen(1)
+            self.server_sock.settimeout(0.05)
+            self.is_server = True
+            log.info(f"PSCAD Socket Bridge listening on {self.host}:{self.port} (ready for Application_1)")
+        except Exception as e:
+            # Fallback: if port is already open by PSCAD server, connect as client
+            self.is_server = False
+            try:
+                self.client_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                self.client_sock.settimeout(0.1)
+                self.client_sock.connect((self.host, self.port))
+                self.connected = True
+                log.info(f"PSCAD Socket Bridge connected to PSCAD on {self.host}:{self.port}")
+            except Exception as ce:
+                log.info(f"PSCAD Application_1 not active yet ({ce}) -- will fall back to dynamic model until connected")
 
-        project = pscad.project(PSCAD_PROJECT_NAME)
-        log.info(f"  Connected to PSCAD project: {PSCAD_PROJECT_NAME}")
-        return pscad, project
+    def exchange(self, v_mag_pu: float, v_angle_deg: float) -> Optional[Tuple[float, float]]:
+        """Send boundary [Phase_deg, V_kV] and receive measured [P_MW, Q_MVAR]."""
+        v_mag_kv = v_mag_pu * V_BASE_KV
 
-    except ImportError:
-        log.warning("mhi.pscad not installed -- running in stub mode")
-        return None, None
-    except Exception as e:
-        log.error(f"PSCAD connection failed: {e}")
-        return None, None
+        if self.is_server and not self.connected:
+            try:
+                client, addr = self.server_sock.accept()
+                client.settimeout(0.1)
+                self.client_sock = client
+                self.connected = True
+                log.info(f"PSCAD Application_1 connected successfully from {addr}!")
+            except (socket.timeout, BlockingIOError):
+                return None
+            except Exception as e:
+                return None
+
+        if not self.connected or not self.client_sock:
+            return None
+
+        try:
+            # Output 1 = Ph (Angle in deg), Output 2 = V (Voltage in kV)
+            out_bytes = struct.pack("<2d", float(v_angle_deg), float(v_mag_kv))
+            self.client_sock.sendall(out_bytes)
+
+            in_bytes = self.client_sock.recv(16)
+            if len(in_bytes) >= 16:
+                P_val, Q_val = struct.unpack("<2d", in_bytes[:16])
+                # Normalize if PSCAD power meter outputs in W / VAR instead of MW / MVAR
+                if abs(P_val) > 10000:
+                    P_val /= 1e6
+                if abs(Q_val) > 10000:
+                    Q_val /= 1e6
+                return P_val, Q_val
+        except Exception as e:
+            log.debug(f"Socket exchange timeout: {e}")
+            return None
+
+        return None
+
+    def close(self):
+        if self.client_sock:
+            try:
+                self.client_sock.close()
+            except Exception:
+                pass
+        if self.server_sock:
+            try:
+                self.server_sock.close()
+            except Exception:
+                pass
 
 
 def pscad_apply_inputs(project, v_mag_pu, v_angle_deg):
-    """
-    Apply boundary voltage inputs to PSCAD.
-    Updates the boundary voltage source component each exchange interval.
-
-    v_mag_pu:    voltage magnitude in per unit (received from PSS/E)
-    v_angle_deg: voltage angle in degrees (received from PSS/E)
-
-    This is the corrected version of pscad_apply_inputs() from the original
-    script -- replaces the current injection / voltage setpoint interface
-    with the correct V_mag / V_angle Norton boundary interface.
-    """
+    """Apply boundary voltage inputs to PSCAD voltage source component if automation available."""
     if project is None:
-        return   # stub mode
-
-    # Convert pu to kV for PSCAD voltage source parameter
+        return
     v_mag_kv = v_mag_pu * V_BASE_KV
-
     try:
         vsource = project.find(PSCAD_VSOURCE_PATH)
-        vsource.parameters(
-            Vrms  = v_mag_kv,      # line-to-line RMS in kV
-            Angle = v_angle_deg,   # phase angle in degrees
-        )
+        if vsource:
+            vsource.parameters(Vrms=v_mag_kv, Angle=v_angle_deg)
     except Exception as e:
-        log.warning(f"  Failed to set PSCAD boundary voltage: {e}")
+        pass
 
 
-def pscad_run_one_step(pscad, project, target_time_s):
-    """
-    Step PSCAD forward to target_time_s and read outputs.
-    PSCAD runs at its internal 0.5us EMT timestep between calls.
+def pscad_run_one_step(
+    socket_bridge,
+    pscad,
+    project,
+    target_time_s,
+    stub_state,
+    v_mag_pu=V_INIT_PU,
+    v_angle_deg=V_INIT_DEG,
+    rated_p_mw=150.0,
+    rated_q_mvar=30.6,
+    profile="datacenter_vfd",
+    simulate_delay=True,
+):
+    """Step forward: checks live Application_1 socket first, then fallback stub."""
+    if socket_bridge is not None:
+        meas = socket_bridge.exchange(v_mag_pu, v_angle_deg)
+        if meas is not None:
+            return meas
 
-    Returns (P_MW, Q_MVAR) -- what the datacenter is drawing from the grid.
-    This is the corrected version of pscad_run_one_step() from the original
-    script -- returns P and Q separately (not voltage + power) because
-    PSCAD is on the load side of the boundary, not the source side.
-    """
-    if pscad is None:
-        # Stub mode -- return rated values for testing
-        time.sleep(EXCHANGE_INTERVAL * 0.1)
-        return 150.0, 30.6
-
-    # Advance PSCAD EMT simulation to target time
-    # PSCAD runs freely at 0.5us between here and target_time_s
-    try:
-        pscad.run_to(target_time_s)
-    except Exception as e:
-        log.warning(f"  PSCAD run_to failed: {e}")
-        return 150.0, 30.6
-
-    # Read P and Q from PSCAD output channels (E/O blocks)
-    try:
-        case   = project.case(PSCAD_CASE_NAME)
-        P_MW   = float(case.get_output_value(PSCAD_OUTPUT_P))
-        Q_MVAR = float(case.get_output_value(PSCAD_OUTPUT_Q))
-        return P_MW, Q_MVAR
-    except Exception as e:
-        log.warning(f"  PSCAD output read failed: {e} -- using rated values")
-        return 150.0, 30.6
+    return stub_step_datacenter(
+        stub_state, v_mag_pu, target_time_s,
+        rated_p_mw, rated_q_mvar, profile, simulate_delay=simulate_delay
+    )
 
 
-# ─── HELICS Federate Setup ───────────────────────────────────────────────────
+# ─── HELICS Federate Setup & Runner ──────────────────────────────────────────
 
-# we create the federate info object
-fedinfo = h.helicsCreateFederateInfo()
-h.helicsFederateInfoSetCoreName(fedinfo, "pscad_core")
-h.helicsFederateInfoSetCoreTypeFromString(fedinfo, "zmq")
+def create_pscad_federate(
+    core_type: str = "zmq",
+    broker_name: Optional[str] = None,
+    adaptive: bool = ADAPTIVE_STEPPING,
+    exchange_interval: float = EXCHANGE_INTERVAL,
+    rated_p_mw: float = 150.0,
+    rated_q_mvar: float = 30.6,
+):
+    """Create and register the PSCAD HELICS value federate."""
+    fedinfo = h.helicsCreateFederateInfo()
+    h.helicsFederateInfoSetCoreName(fedinfo, f"pscad_core_{id(fedinfo)}")
+    h.helicsFederateInfoSetCoreTypeFromString(fedinfo, core_type)
+    init_str = "--federates=1" + (f" --broker={broker_name}" if broker_name else "")
+    h.helicsFederateInfoSetCoreInitString(fedinfo, init_str)
 
-# does NOT start the broker -- broker is started via helios_runner.json
-# or helios_broker.py in a separate terminal
-h.helicsFederateInfoSetCoreInitString(fedinfo, "--federates=1")
+    period = 0.0 if adaptive else exchange_interval
+    h.helicsFederateInfoSetTimeProperty(fedinfo, h.HELICS_PROPERTY_TIME_PERIOD, period)
+    h.helicsFederateInfoSetFlagOption(fedinfo, h.HELICS_FLAG_SLOW_RESPONDING, True)
+    h.helicsFederateInfoSetFlagOption(fedinfo, h.HELICS_FLAG_UNINTERRUPTIBLE, True)
 
-# set time step
-# CORRECTION from original: was 50e-6 (matching PSCAD's 0.5us EMT step)
-# this is wrong -- it would cause millions of HELICS exchanges per second
-# correct value is 10e-3 (10ms) matching PSS/E's transient stability timestep
-# PSCAD runs freely at its own 0.5us step between each 10ms HELICS exchange
-h.helicsFederateInfoSetTimeProperty(
-    fedinfo,
-    h.HELICS_PROPERTY_TIME_PERIOD,
-    EXCHANGE_INTERVAL   # 10ms, NOT 50e-6
-)
+    fed = h.helicsCreateValueFederate("pscad_federate", fedinfo)
 
-# PSCAD EMT runs are slow relative to HELICS wall clock -- prevent timeout
-h.helicsFederateInfoSetFlagOption(
-    fedinfo,
-    h.HELICS_FLAG_SLOW_RESPONDING,
-    True
-)
+    pub_P = h.helicsFederateRegisterGlobalPublication(
+        fed, "pscad_federate/P_injection", h.HELICS_DATA_TYPE_DOUBLE, "MW"
+    )
+    pub_Q = h.helicsFederateRegisterGlobalPublication(
+        fed, "pscad_federate/Q_injection", h.HELICS_DATA_TYPE_DOUBLE, "MVAR"
+    )
 
-# create a value federate (publications and subscriptions)
-fed = h.helicsCreateValueFederate("pscad_federate", fedinfo)
+    sub_V_mag = h.helicsFederateRegisterSubscription(
+        fed, "psse_federate/boundary_V_mag", "pu"
+    )
+    sub_V_angle = h.helicsFederateRegisterSubscription(
+        fed, "psse_federate/boundary_V_angle", "deg"
+    )
+    sub_next_dt = h.helicsFederateRegisterSubscription(
+        fed, "psse_federate/next_dt", "s"
+    )
+    h.helicsInputSetDefaultDouble(sub_next_dt, exchange_interval)
 
-# ─── Interface Registration ───────────────────────────────────────────────────
+    sub_skip_emt = h.helicsFederateRegisterSubscription(
+        fed, "psse_federate/skip_emt", ""
+    )
+    h.helicsInputSetDefaultBoolean(sub_skip_emt, False)
 
-# now, we decide what PSCAD sends and receives
-#
-# CORRECTION from original:
-# Original had PSCAD receiving current injection + voltage setpoint
-# and sending terminal voltage + active power.
-# This is backwards for EMT/TS co-simulation.
-#
-# Correct Norton boundary interface:
-#   PSCAD RECEIVES from PSS/E: boundary bus V_magnitude (pu) + V_angle (deg)
-#   PSCAD SENDS    to   PSS/E: datacenter P_injection (MW) + Q_injection (MVAR)
-#
-# PSS/E holds the grid voltage (it has the generators and network)
-# PSCAD holds the load (it has the datacenter power electronics)
-# PSS/E tells PSCAD what voltage the grid is presenting at the boundary
-# PSCAD tells PSS/E how much power the datacenter is drawing
+    h.helicsInputSetDefaultDouble(sub_V_mag, V_INIT_PU)
+    h.helicsInputSetDefaultDouble(sub_V_angle, V_INIT_DEG)
 
-# what this federate publishes (PSCAD → PSS/E)
-# CORRECTION: was terminal_voltage (complex V) and active_power (W)
-# correct: P_injection (MW) and Q_injection (MVAR) -- the load the datacenter draws
-pub_P = h.helicsFederateRegisterGlobalPublication(
-    fed,
-    "pscad_federate/P_injection",   # PSS/E subscribes to this exact name
-    h.HELICS_DATA_TYPE_DOUBLE,
-    "MW"
-)
+    return fed, pub_P, pub_Q, sub_V_mag, sub_V_angle, sub_next_dt, sub_skip_emt
 
-pub_Q = h.helicsFederateRegisterGlobalPublication(
-    fed,
-    "pscad_federate/Q_injection",   # PSS/E subscribes to this exact name
-    h.HELICS_DATA_TYPE_DOUBLE,
-    "MVAR"
-)
 
-# what this federate subscribes to (from PSS/E / ACTIVSg2K)
-# CORRECTION: was current_injection (A) and voltage_setpoint (V)
-# correct: boundary_V_mag (pu) and boundary_V_angle (deg)
-# PSS/E publishes the grid-side voltage at Bus 5385 each exchange
-sub_V_mag = h.helicsFederateRegisterSubscription(
-    fed,
-    "psse_federate/boundary_V_mag",     # must match PSS/E pub name exactly
-    "pu"
-)
-
-sub_V_angle = h.helicsFederateRegisterSubscription(
-    fed,
-    "psse_federate/boundary_V_angle",   # must match PSS/E pub name exactly
-    "deg"
-)
-
-# ─── Main Co-Simulation Loop ─────────────────────────────────────────────────
-
-def run_cosim():
-    """Main co-simulation loop."""
-
-    # Connect to PSCAD
+def run_cosim(
+    total_time: float = TOTAL_SIM_TIME,
+    exchange_interval: float = EXCHANGE_INTERVAL,
+    adaptive: bool = ADAPTIVE_STEPPING,
+    core_type: str = "zmq",
+    broker_name: Optional[str] = None,
+    rated_p_mw: float = 150.0,
+    rated_q_mvar: float = 30.6,
+    profile: str = "datacenter_vfd",
+    simulate_delay: bool = True,
+    close_library: bool = True,
+):
+    """Main co-simulation loop supporting fixed and adaptive exchange steps."""
     pscad, project = connect_pscad()
+    socket_bridge = PSCADSocketBridge(port=40001)
+    socket_bridge.start()
+    fed, pub_P, pub_Q, sub_V_mag, sub_V_angle, sub_next_dt, sub_skip_emt = create_pscad_federate(
+        core_type=core_type,
+        broker_name=broker_name,
+        adaptive=adaptive,
+        exchange_interval=exchange_interval,
+        rated_p_mw=rated_p_mw,
+        rated_q_mvar=rated_q_mvar,
+    )
 
-    # enter initialization mode
+    stub_state = {"p_mw": rated_p_mw, "q_mvar": rated_q_mvar, "last_t": 0.0}
+
     h.helicsFederateEnterInitializingMode(fed)
-
-    # set initial values here before execution starts
-    # initial condition: rated steady-state datacenter load
-    # these match the 150MW load already in the PSS/E case at Bus 5385
-    h.helicsPublicationPublishDouble(pub_P, 150.0)   # 150 MW rated
-    h.helicsPublicationPublishDouble(pub_Q,  30.6)   # 30.6 MVAR rated (PF=0.98)
-
+    h.helicsPublicationPublishDouble(pub_P, rated_p_mw)
+    h.helicsPublicationPublishDouble(pub_Q, rated_q_mvar)
     h.helicsFederateEnterExecutingMode(fed)
-    log.info("Co-simulation started")
-
-    # time loop
-    # advance HELICS time at PSS/E's transient stability timestep (10ms)
-    # since PSCAD timestep is in the us domain, we would have millions of
-    # HELICS exchanges per second of simulation if we matched PSCAD's step --
-    # this would mean the communication overhead would dwarf the actual computation
-    # instead, PSCAD runs freely at 0.5us between each 10ms HELICS exchange
-
-    # total co-sim duration in seconds
-    total_time   = TOTAL_SIM_TIME
-
-    # match PSS/E's transient stability timestep
-    # CORRECTION from original: was 50e-1 = 5 seconds (too coarse)
-    # and also was described as matching PSCAD step (wrong concept)
-    # correct value: 10e-3 = 10ms matching PSS/E TS timestep
-    time_step    = EXCHANGE_INTERVAL   # 10ms
 
     current_time = 0.0
-    step         = 0
+    dt_curr = exchange_interval
+    skip_curr = False
+    step = 0
+    emt_calls = 0
+    emt_skipped = 0
+    last_P, last_Q = rated_p_mw, rated_q_mvar
+    wallclock_start = time.time()
+    MAX_WALLCLOCK_S = 120.0   # Hard 2-minute time gate
 
-    while current_time < total_time:
-
-        # request next time from broker
-        # broker grants time only when BOTH federates have requested it
-        # this is what keeps PSS/E and PSCAD synchronized
-        granted_time = h.helicsFederateRequestTime(
-            fed, current_time + time_step
-        )
-
+    while current_time < total_time - 1e-9:
+        if time.time() - wallclock_start > MAX_WALLCLOCK_S:
+            log.warning(f"Time gate reached ({MAX_WALLCLOCK_S:.0f}s). Finalizing PSCAD federate cleanly...")
+            break
+        target_t = min(total_time, current_time + dt_curr)
+        granted_time = h.helicsFederateRequestTime(fed, target_t)
         step += 1
 
-        # read inputs from ACTIVSg2K (PSS/E)
-        # CORRECTION from original: was i_inject (complex A) and v_set (V scalar)
-        # correct: v_mag (pu) and v_angle (deg) from PSS/E boundary bus solution
-        v_mag   = h.helicsInputGetDouble(sub_V_mag)
+        v_mag = h.helicsInputGetDouble(sub_V_mag)
         v_angle = h.helicsInputGetDouble(sub_V_angle)
 
-        if step % 10 == 0:   # log every 100ms
-            log.info(f"t={granted_time:.3f}s | "
-                     f"PSS/E→PSCAD: V={v_mag:.5f}pu, δ={v_angle:.3f}deg")
+        if skip_curr:
+            emt_skipped += 1
+            stub_state["last_t"] = granted_time
+            P_MW, Q_MVAR = last_P, last_Q
+        else:
+            emt_calls += 1
+            pscad_apply_inputs(project, v_mag, v_angle)
+            P_MW, Q_MVAR = pscad_run_one_step(
+                socket_bridge, pscad, project, granted_time, stub_state,
+                v_mag_pu=v_mag, v_angle_deg=v_angle, rated_p_mw=rated_p_mw, rated_q_mvar=rated_q_mvar,
+                profile=profile, simulate_delay=simulate_delay,
+            )
+            last_P, last_Q = P_MW, Q_MVAR
 
-        # apply to PSCAD boundary voltage source
-        # PSCAD coupling code -- updates Main:BoundaryVoltageSource parameters
-        pscad_apply_inputs(project, v_mag, v_angle)
+        if adaptive:
+            nxt = h.helicsInputGetDouble(sub_next_dt)
+            dt_curr = nxt if nxt > 1e-5 else exchange_interval
+            skip_curr = bool(h.helicsInputGetBoolean(sub_skip_emt))
+        else:
+            dt_curr = exchange_interval
+            skip_curr = False
 
-        # step PSCAD forward to granted_time
-        # PSCAD runs at 0.5us EMT step internally between here and granted_time
-        # returns P and Q that the datacenter is drawing from the grid
-        P_MW, Q_MVAR = pscad_run_one_step(pscad, project, granted_time)
+        if step % 20 == 0:
+            log.info(
+                f"t={granted_time:.3f}s | V={v_mag:.5f}pu | skip={skip_curr} | "
+                f"P={P_MW:.2f}MW, Q={Q_MVAR:.2f}MVAR"
+            )
 
-        if step % 10 == 0:
-            log.info(f"t={granted_time:.3f}s | "
-                     f"PSCAD→PSS/E: P={P_MW:.3f}MW, Q={Q_MVAR:.3f}MVAR")
-
-        # publish PSCAD outputs to HELICS
-        # CORRECTION from original: was complex voltage + scalar power
-        # correct: P (MW) and Q (MVAR) separately -- PSS/E needs both
-        # to update the datacenter load model at Bus 5385
         h.helicsPublicationPublishDouble(pub_P, P_MW)
         h.helicsPublicationPublishDouble(pub_Q, Q_MVAR)
-
         current_time = granted_time
 
-    # finalize
-    log.info("Co-simulation complete. Finalizing...")
-    h.helicsFederateFinalize(fed)
+    socket_bridge.close()
+    h.helicsFederateDisconnect(fed)
     h.helicsFederateFree(fed)
-    h.helicsCloseLibrary()
-    log.info("PSCAD federate finalized cleanly")
+    if close_library:
+        h.helicsCloseLibrary()
+    log.info("PSCAD federate finalized cleanly.")
 
+    return {
+        "steps": step,
+        "emt_calls": emt_calls,
+        "emt_skipped": emt_skipped,
+    }
 
-# ─── Entry Point ─────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
-    run_cosim()
+    run_cosim(
+        rated_p_mw=float(os.environ.get("HELIOS_RATED_P_MW", "150.0")),
+        rated_q_mvar=float(os.environ.get("HELIOS_RATED_Q_MVAR", "30.6")),
+        profile=os.environ.get("HELIOS_COMPONENT_PROFILE", "datacenter_vfd"),
+    )

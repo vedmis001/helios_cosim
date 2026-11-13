@@ -4,6 +4,7 @@
     "_comment_3": "This file starts the broker AND both federates simultaneously",
     "_boundary":  "Bus 5385, DALLAS 3 1, 161kV, ACTIVSg2000 Texas grid",
 
+    "name": "helios_federation",
     "broker": true,
     "broker_name": "helios_broker",
     "loglevel": "summary",
@@ -19,7 +20,7 @@
         },
         {
             "name": "pscad_federate",
-            "exec": "python helios_pscad_federate_v2.py",
+            "exec": "python helios_pscad_federate.py",
             "directory": ".",
             "wait_for_completion": true,
             "log_level": "summary"

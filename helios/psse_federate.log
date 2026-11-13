@@ -1,0 +1,427 @@
+2026-11-12 21:36:54,871 [PSSE] Initializing PSS/E...
+
+ PSS(R)E Version 36
+ Copyright (c) 1976-2026
+ Siemens Industry, Inc.,
+ Power Technologies International                            (PTI)
+ This program is a confidential  unpublished  work  created  and  first
+ licensed in 1976.  It is a trade secret which is the property of  PTI.
+ All use,  disclosure,  and/or reproduction not specifically authorized
+ by  PTI  is prohibited.   This  program is protected  under  copyright
+ laws  of  non-U.S.  countries  and  by  application  of  international
+ treaties.  All  Rights  Reserved  Under  The  Copyright  Laws.
+
+
+           SIEMENS POWER TECHNOLOGIES INTERNATIONAL
+
+ 80000 BUS POWER SYSTEM SIMULATOR--PSS(R)E-36.7.1--Python 3.14
+
+             INITIATED ON THU, NOV 12 2026  21:36
+2026-11-12 21:36:56,626 [PSSE]   Loaded: C:\Users\vamisra\HELIOS\psse\ACTIVSg2000_HELIOS_DC150MW.sav
+2026-11-12 21:36:56,678 [PSSE]   Loaded: C:\Users\vamisra\Documents\ACTIVSg2000_dynamics.dyr
+2026-11-12 21:36:56,680 [PSSE]   Restored snapshot: C:\Users\vamisra\HELIOS\psse\ACTIVSg2000_HELIOS_t0.snp
+2026-11-12 21:36:56,680 [PSSE]   Boundary bus 5385 voltage: 1.00559 pu (expected 1.00559 pu)
+2026-11-12 21:36:56,680 [PSSE] PSS/E initialized successfully
+2026-11-12 21:36:56,683 [PSSE] Output channels configured, writing to: helios_psse_channels.out
+2026-11-12 21:36:56,818 [PSSE] HELICS PSS/E federate created
+2026-11-12 21:36:56,819 [PSSE] HELICS interfaces registered:
+2026-11-12 21:36:56,819 [PSSE]   Publishing:   boundary_V_mag [pu], boundary_V_angle [deg], next_dt [s], skip_emt [bool]
+2026-11-12 21:36:56,819 [PSSE]   Subscribing:  P_injection [MW], Q_injection [MVAR]
+2026-11-12 21:36:56,819 [PSSE] Entering HELICS initialization mode...
+2026-11-12 21:36:56,820 [PSSE] Initial boundary voltage published: V=1.00559pu, angle=-72.489deg
+2026-11-12 21:36:56,820 [PSSE] Entering HELICS execution mode (waiting for PSCAD federate)...
+2026-11-12 21:36:56,820 [PSSE] Co-simulation started (Adaptive RLS: True, range: [2.0ms - 80.0ms])
+2026-11-12 21:36:57,068 [PSSE] t=0.024s | dt=2.0ms | skip_emt=False | P=149.99MW, Q=30.55MVAR | V=1.00306pu | unc=0.294
+2026-11-12 21:36:57,446 [PSSE] t=0.039s | dt=2.1ms | skip_emt=False | P=149.97MW, Q=30.50MVAR | V=1.00055pu | unc=0.231
+2026-11-12 21:36:57,880 [PSSE] t=0.051s | dt=2.1ms | skip_emt=False | P=149.95MW, Q=30.43MVAR | V=0.99802pu | unc=0.205
+2026-11-12 21:36:58,317 [PSSE] t=0.066s | dt=2.1ms | skip_emt=False | P=149.93MW, Q=30.34MVAR | V=0.99676pu | unc=0.185
+2026-11-12 21:36:58,566 [PSSE] t=0.074s | dt=2.1ms | skip_emt=False | P=149.92MW, Q=30.28MVAR | V=0.99554pu | unc=0.179
+2026-11-12 21:36:58,571 [PSSE] t=0.077s | dt=2.1ms | skip_emt=True | P=149.96MW, Q=30.44MVAR | V=0.99435pu | unc=0.184
+2026-11-12 21:36:58,572 [PSSE] t=0.079s | dt=2.1ms | skip_emt=False | P=149.92MW, Q=30.28MVAR | V=0.99435pu | unc=0.178
+2026-11-12 21:36:58,572 [PSSE] t=0.081s | dt=2.1ms | skip_emt=True | P=149.96MW, Q=30.44MVAR | V=0.99435pu | unc=0.178
+2026-11-12 21:36:58,578 [PSSE] t=0.085s | dt=2.1ms | skip_emt=True | P=149.96MW, Q=30.44MVAR | V=0.99322pu | unc=0.178
+2026-11-12 21:36:58,643 [PSSE] t=0.087s | dt=2.1ms | skip_emt=False | P=149.91MW, Q=30.26MVAR | V=0.99322pu | unc=0.176
+2026-11-12 21:36:58,650 [PSSE] t=0.093s | dt=2.1ms | skip_emt=True | P=149.96MW, Q=30.43MVAR | V=0.99214pu | unc=0.176
+2026-11-12 21:36:58,650 [PSSE] t=0.094s | dt=2.1ms | skip_emt=False | P=149.91MW, Q=30.26MVAR | V=0.99214pu | unc=0.180
+2026-11-12 21:36:58,706 [PSSE] t=0.096s | dt=2.1ms | skip_emt=False | P=149.91MW, Q=30.24MVAR | V=0.99214pu | unc=0.175
+2026-11-12 21:36:58,713 [PSSE] t=0.102s | dt=2.1ms | skip_emt=True | P=149.95MW, Q=30.42MVAR | V=0.99111pu | unc=0.175
+2026-11-12 21:36:58,769 [PSSE] t=0.104s | dt=2.1ms | skip_emt=False | P=149.90MW, Q=30.22MVAR | V=0.99111pu | unc=0.174
+2026-11-12 21:36:58,772 [PSSE] t=0.108s | dt=2.1ms | skip_emt=True | P=149.95MW, Q=30.41MVAR | V=0.99111pu | unc=0.174
+2026-11-12 21:36:58,776 [PSSE] t=0.110s | dt=2.1ms | skip_emt=True | P=149.95MW, Q=30.41MVAR | V=0.99011pu | unc=0.174
+2026-11-12 21:36:58,777 [PSSE] t=0.111s | dt=2.1ms | skip_emt=False | P=149.90MW, Q=30.22MVAR | V=0.99011pu | unc=0.178
+2026-11-12 21:36:58,837 [PSSE] t=0.117s | dt=2.1ms | skip_emt=True | P=149.95MW, Q=30.40MVAR | V=0.98912pu | unc=0.174
+2026-11-12 21:36:58,838 [PSSE] t=0.119s | dt=2.1ms | skip_emt=False | P=149.89MW, Q=30.19MVAR | V=0.98912pu | unc=0.177
+2026-11-12 21:36:58,840 [PSSE] t=0.123s | dt=2.1ms | skip_emt=True | P=149.95MW, Q=30.39MVAR | V=0.98912pu | unc=0.174
+2026-11-12 21:36:58,841 [PSSE] t=0.123s | dt=2.1ms | skip_emt=True | P=149.95MW, Q=30.39MVAR | V=0.98912pu | unc=0.174
+2026-11-12 21:36:58,844 [PSSE] t=0.125s | dt=2.1ms | skip_emt=False | P=149.89MW, Q=30.19MVAR | V=0.98815pu | unc=0.173
+2026-11-12 21:36:58,846 [PSSE] t=0.132s | dt=2.1ms | skip_emt=True | P=149.94MW, Q=30.39MVAR | V=0.98815pu | unc=0.174
+2026-11-12 21:36:58,847 [PSSE] t=0.132s | dt=2.1ms | skip_emt=False | P=149.89MW, Q=30.19MVAR | V=0.98815pu | unc=0.173
+2026-11-12 21:36:58,916 [PSSE] t=0.136s | dt=2.1ms | skip_emt=True | P=149.94MW, Q=30.38MVAR | V=0.98715pu | unc=0.174
+2026-11-12 21:36:58,917 [PSSE] t=0.138s | dt=2.1ms | skip_emt=True | P=149.94MW, Q=30.38MVAR | V=0.98715pu | unc=0.174
+2026-11-12 21:36:58,918 [PSSE] t=0.140s | dt=2.1ms | skip_emt=False | P=149.88MW, Q=30.16MVAR | V=0.98715pu | unc=0.173
+2026-11-12 21:36:58,979 [PSSE] t=0.145s | dt=2.1ms | skip_emt=True | P=149.94MW, Q=30.37MVAR | V=0.98613pu | unc=0.174
+2026-11-12 21:36:58,980 [PSSE] t=0.147s | dt=2.1ms | skip_emt=False | P=149.88MW, Q=30.13MVAR | V=0.98613pu | unc=0.174
+2026-11-12 21:36:59,039 [PSSE] t=0.151s | dt=2.1ms | skip_emt=True | P=149.94MW, Q=30.37MVAR | V=0.98506pu | unc=0.174
+2026-11-12 21:36:59,039 [PSSE] t=0.153s | dt=2.1ms | skip_emt=True | P=149.94MW, Q=30.37MVAR | V=0.98506pu | unc=0.180
+2026-11-12 21:36:59,040 [PSSE] t=0.153s | dt=2.1ms | skip_emt=False | P=149.87MW, Q=30.09MVAR | V=0.98506pu | unc=0.174
+2026-11-12 21:36:59,104 [PSSE] t=0.159s | dt=2.1ms | skip_emt=True | P=149.94MW, Q=30.36MVAR | V=0.98392pu | unc=0.174
+2026-11-12 21:36:59,161 [PSSE] t=0.162s | dt=2.1ms | skip_emt=False | P=149.85MW, Q=30.02MVAR | V=0.98392pu | unc=0.175
+2026-11-12 21:36:59,224 [PSSE] t=0.166s | dt=2.1ms | skip_emt=True | P=149.93MW, Q=30.34MVAR | V=0.98392pu | unc=0.174
+2026-11-12 21:36:59,229 [PSSE] t=0.168s | dt=2.1ms | skip_emt=True | P=149.93MW, Q=30.34MVAR | V=0.98269pu | unc=0.174
+2026-11-12 21:36:59,285 [PSSE] t=0.170s | dt=2.1ms | skip_emt=False | P=149.83MW, Q=29.96MVAR | V=0.98269pu | unc=0.175
+2026-11-12 21:36:59,353 [PSSE] t=0.176s | dt=2.2ms | skip_emt=True | P=149.93MW, Q=30.32MVAR | V=0.98134pu | unc=0.175
+2026-11-12 21:36:59,410 [PSSE] t=0.179s | dt=3.0ms | skip_emt=False | P=149.81MW, Q=29.89MVAR | V=0.98134pu | unc=0.179
+2026-11-12 21:36:59,477 [PSSE] t=0.185s | dt=3.2ms | skip_emt=False | P=149.80MW, Q=29.84MVAR | V=0.97989pu | unc=0.179
+2026-11-12 21:36:59,534 [PSSE] t=0.185s | dt=3.2ms | skip_emt=True | P=149.91MW, Q=30.26MVAR | V=0.97989pu | unc=0.188
+2026-11-12 21:36:59,598 [PSSE] t=0.198s | dt=2.3ms | skip_emt=False | P=149.76MW, Q=29.71MVAR | V=0.97827pu | unc=0.179
+2026-11-12 21:36:59,659 [PSSE] t=0.202s | dt=2.5ms | skip_emt=True | P=149.89MW, Q=30.20MVAR | V=0.97647pu | unc=0.188
+2026-11-12 21:36:59,660 [PSSE] t=0.204s | dt=2.1ms | skip_emt=False | P=149.74MW, Q=29.61MVAR | V=0.97647pu | unc=0.178
+2026-11-12 21:36:59,722 [PSSE] t=0.204s | dt=2.1ms | skip_emt=True | P=149.89MW, Q=30.18MVAR | V=0.97647pu | unc=0.181
+2026-11-12 21:36:59,724 [PSSE] t=0.206s | dt=2.1ms | skip_emt=False | P=149.73MW, Q=29.58MVAR | V=0.97647pu | unc=0.178
+2026-11-12 21:36:59,725 [PSSE] t=0.208s | dt=2.1ms | skip_emt=True | P=149.88MW, Q=30.16MVAR | V=0.97647pu | unc=0.181
+2026-11-12 21:36:59,731 [PSSE] t=0.209s | dt=2.1ms | skip_emt=False | P=149.73MW, Q=29.58MVAR | V=0.97454pu | unc=0.177
+2026-11-12 21:36:59,785 [PSSE] t=0.211s | dt=2.1ms | skip_emt=True | P=149.88MW, Q=30.14MVAR | V=0.97454pu | unc=0.194
+2026-11-12 21:36:59,972 [PSSE] t=0.217s | dt=2.1ms | skip_emt=False | P=149.70MW, Q=29.47MVAR | V=0.97241pu | unc=0.196
+2026-11-12 21:37:00,408 [PSSE] t=0.232s | dt=2.1ms | skip_emt=False | P=149.65MW, Q=29.28MVAR | V=0.97008pu | unc=0.181
+2026-11-12 21:37:00,783 [PSSE] t=0.246s | dt=2.1ms | skip_emt=False | P=149.61MW, Q=29.12MVAR | V=0.96486pu | unc=0.183
+2026-11-12 21:37:01,221 [PSSE] t=0.259s | dt=2.1ms | skip_emt=False | P=149.55MW, Q=28.92MVAR | V=0.95883pu | unc=0.212
+2026-11-12 21:37:01,657 [PSSE] t=0.274s | dt=2.1ms | skip_emt=False | P=149.49MW, Q=28.69MVAR | V=0.95546pu | unc=0.180
+2026-11-12 21:37:01,910 [PSSE] t=0.284s | dt=2.1ms | skip_emt=False | P=149.46MW, Q=28.56MVAR | V=0.94836pu | unc=0.178
+2026-11-12 21:37:01,968 [PSSE] t=0.285s | dt=2.1ms | skip_emt=True | P=149.58MW, Q=29.02MVAR | V=0.94836pu | unc=0.230
+2026-11-12 21:37:01,971 [PSSE] t=0.289s | dt=2.1ms | skip_emt=False | P=149.45MW, Q=28.53MVAR | V=0.94836pu | unc=0.181
+2026-11-12 21:37:02,102 [PSSE] t=0.293s | dt=2.1ms | skip_emt=False | P=149.43MW, Q=28.45MVAR | V=0.94453pu | unc=0.177
+2026-11-12 21:37:02,155 [PSSE] t=0.293s | dt=2.1ms | skip_emt=True | P=149.55MW, Q=28.90MVAR | V=0.94453pu | unc=0.242
+2026-11-12 21:37:02,279 [PSSE] t=0.299s | dt=2.1ms | skip_emt=False | P=149.39MW, Q=28.33MVAR | V=0.94453pu | unc=0.177
+2026-11-12 21:37:02,287 [PSSE] t=0.302s | dt=2.1ms | skip_emt=True | P=149.53MW, Q=28.81MVAR | V=0.94049pu | unc=0.252
+2026-11-12 21:37:02,405 [PSSE] t=0.308s | dt=2.1ms | skip_emt=False | P=149.37MW, Q=28.23MVAR | V=0.94049pu | unc=0.177
+2026-11-12 21:37:02,412 [PSSE] t=0.310s | dt=2.1ms | skip_emt=True | P=149.50MW, Q=28.70MVAR | V=0.93630pu | unc=0.261
+2026-11-12 21:37:02,530 [PSSE] t=0.316s | dt=2.1ms | skip_emt=False | P=149.34MW, Q=28.11MVAR | V=0.93630pu | unc=0.176
+2026-11-12 21:37:02,537 [PSSE] t=0.318s | dt=2.1ms | skip_emt=True | P=149.47MW, Q=28.59MVAR | V=0.93198pu | unc=0.271
+2026-11-12 21:37:02,594 [PSSE] t=0.323s | dt=2.1ms | skip_emt=False | P=149.32MW, Q=28.05MVAR | V=0.93198pu | unc=0.176
+2026-11-12 21:37:02,664 [PSSE] t=0.327s | dt=2.1ms | skip_emt=True | P=149.44MW, Q=28.49MVAR | V=0.92760pu | unc=0.279
+2026-11-12 21:37:02,667 [PSSE] t=0.331s | dt=2.1ms | skip_emt=False | P=149.30MW, Q=27.99MVAR | V=0.92760pu | unc=0.180
+2026-11-12 21:37:02,719 [PSSE] t=0.331s | dt=2.1ms | skip_emt=False | P=149.28MW, Q=27.91MVAR | V=0.92760pu | unc=0.177
+2026-11-12 21:37:02,790 [PSSE] t=0.335s | dt=2.1ms | skip_emt=True | P=149.41MW, Q=28.38MVAR | V=0.92322pu | unc=0.286
+2026-11-12 21:37:02,921 [PSSE] t=0.342s | dt=2.1ms | skip_emt=False | P=149.23MW, Q=27.70MVAR | V=0.92322pu | unc=0.176
+2026-11-12 21:37:02,928 [PSSE] t=0.344s | dt=2.1ms | skip_emt=True | P=149.38MW, Q=28.25MVAR | V=0.91892pu | unc=0.290
+2026-11-12 21:37:02,930 [PSSE] t=0.346s | dt=2.0ms | skip_emt=False | P=149.23MW, Q=27.70MVAR | V=0.91892pu | unc=0.176
+2026-11-12 21:37:02,930 [PSSE] t=0.348s | dt=2.1ms | skip_emt=True | P=149.35MW, Q=28.16MVAR | V=0.91892pu | unc=0.182
+2026-11-12 21:37:02,931 [PSSE] t=0.348s | dt=2.1ms | skip_emt=False | P=149.23MW, Q=27.70MVAR | V=0.91892pu | unc=0.173
+2026-11-12 21:37:03,005 [PSSE] t=0.352s | dt=2.1ms | skip_emt=True | P=149.35MW, Q=28.16MVAR | V=0.91475pu | unc=0.294
+2026-11-12 21:37:03,191 [PSSE] t=0.359s | dt=2.1ms | skip_emt=False | P=149.14MW, Q=27.39MVAR | V=0.91078pu | unc=0.180
+2026-11-12 21:37:03,562 [PSSE] t=0.373s | dt=2.1ms | skip_emt=False | P=149.02MW, Q=26.96MVAR | V=0.90685pu | unc=0.200
+2026-11-12 21:37:03,996 [PSSE] t=0.386s | dt=2.0ms | skip_emt=False | P=148.91MW, Q=26.55MVAR | V=0.89835pu | unc=0.218
+2026-11-12 21:37:04,435 [PSSE] t=0.400s | dt=2.1ms | skip_emt=False | P=148.81MW, Q=26.18MVAR | V=0.89326pu | unc=0.231
+2026-11-12 21:37:04,810 [PSSE] t=0.415s | dt=2.1ms | skip_emt=False | P=148.72MW, Q=25.85MVAR | V=0.88045pu | unc=0.247
+2026-11-12 21:37:05,246 [PSSE] t=0.427s | dt=2.1ms | skip_emt=False | P=148.55MW, Q=27.02MVAR | V=0.86411pu | unc=0.453
+2026-11-12 21:37:05,687 [PSSE] t=0.441s | dt=2.0ms | skip_emt=False | P=147.07MW, Q=28.38MVAR | V=0.85523pu | unc=0.262
+2026-11-12 21:37:06,069 [PSSE] t=0.456s | dt=2.0ms | skip_emt=False | P=145.12MW, Q=28.93MVAR | V=0.83909pu | unc=0.256
+2026-11-12 21:37:06,505 [PSSE] t=0.468s | dt=2.0ms | skip_emt=False | P=142.64MW, Q=29.20MVAR | V=0.82770pu | unc=0.332
+2026-11-12 21:37:06,946 [PSSE] t=0.482s | dt=2.0ms | skip_emt=False | P=140.24MW, Q=29.26MVAR | V=0.82259pu | unc=0.229
+2026-11-12 21:37:07,324 [PSSE] t=0.496s | dt=2.0ms | skip_emt=False | P=138.17MW, Q=29.21MVAR | V=0.80831pu | unc=0.302
+2026-11-12 21:37:07,760 [PSSE] t=0.508s | dt=2.0ms | skip_emt=False | P=135.39MW, Q=29.04MVAR | V=0.79845pu | unc=0.345
+2026-11-12 21:37:08,195 [PSSE] t=0.522s | dt=2.0ms | skip_emt=False | P=132.03MW, Q=28.78MVAR | V=0.77417pu | unc=0.396
+2026-11-12 21:37:08,574 [PSSE] t=0.536s | dt=2.0ms | skip_emt=False | P=128.53MW, Q=28.48MVAR | V=0.73758pu | unc=0.791
+2026-11-12 21:37:09,001 [PSSE] t=0.548s | dt=2.0ms | skip_emt=False | P=122.32MW, Q=27.92MVAR | V=0.70970pu | unc=0.516
+2026-11-12 21:37:09,444 [PSSE] t=0.562s | dt=2.0ms | skip_emt=False | P=114.76MW, Q=27.24MVAR | V=0.65680pu | unc=0.590
+2026-11-12 21:37:09,822 [PSSE] t=0.574s | dt=2.1ms | skip_emt=False | P=107.89MW, Q=26.64MVAR | V=0.63331pu | unc=0.286
+2026-11-12 21:37:09,829 [PSSE] t=0.577s | dt=2.1ms | skip_emt=True | P=108.67MW, Q=26.84MVAR | V=0.61204pu | unc=0.314
+2026-11-12 21:37:10,016 [PSSE] t=0.585s | dt=2.0ms | skip_emt=False | P=104.05MW, Q=26.30MVAR | V=0.59349pu | unc=0.000
+2026-11-12 21:37:10,071 [PSSE] t=0.585s | dt=2.2ms | skip_emt=True | P=103.32MW, Q=26.29MVAR | V=0.59349pu | unc=0.443
+2026-11-12 21:37:10,072 [PSSE] t=0.587s | dt=2.0ms | skip_emt=False | P=102.98MW, Q=26.21MVAR | V=0.59349pu | unc=0.000
+2026-11-12 21:37:10,074 [PSSE] t=0.589s | dt=2.5ms | skip_emt=True | P=102.73MW, Q=26.52MVAR | V=0.59349pu | unc=0.000
+2026-11-12 21:37:10,082 [PSSE] t=0.592s | dt=2.5ms | skip_emt=True | P=102.67MW, Q=26.67MVAR | V=0.57752pu | unc=0.000
+2026-11-12 21:37:10,134 [PSSE] t=0.594s | dt=2.0ms | skip_emt=False | P=101.12MW, Q=26.05MVAR | V=0.57752pu | unc=0.000
+2026-11-12 21:37:10,206 [PSSE] t=0.601s | dt=2.5ms | skip_emt=True | P=99.65MW, Q=27.84MVAR | V=0.56369pu | unc=0.000
+2026-11-12 21:37:10,259 [PSSE] t=0.604s | dt=2.1ms | skip_emt=False | P=97.91MW, Q=25.78MVAR | V=0.56369pu | unc=2.693
+2026-11-12 21:37:10,701 [PSSE] t=0.618s | dt=2.0ms | skip_emt=False | P=89.86MW, Q=25.11MVAR | V=0.54328pu | unc=0.401
+2026-11-12 21:37:11,073 [PSSE] t=0.632s | dt=2.0ms | skip_emt=False | P=84.57MW, Q=24.67MVAR | V=0.53883pu | unc=0.260
+2026-11-12 21:37:11,509 [PSSE] t=0.644s | dt=2.0ms | skip_emt=False | P=80.00MW, Q=24.30MVAR | V=0.52711pu | unc=0.208
+2026-11-12 21:37:11,944 [PSSE] t=0.658s | dt=2.0ms | skip_emt=False | P=76.87MW, Q=24.05MVAR | V=0.52195pu | unc=0.180
+2026-11-12 21:37:12,320 [PSSE] t=0.672s | dt=2.0ms | skip_emt=False | P=74.18MW, Q=23.84MVAR | V=0.49924pu | unc=0.159
+2026-11-12 21:37:12,753 [PSSE] t=0.684s | dt=2.0ms | skip_emt=False | P=71.15MW, Q=23.61MVAR | V=0.48719pu | unc=0.062
+2026-11-12 21:37:13,192 [PSSE] t=0.698s | dt=2.0ms | skip_emt=False | P=68.53MW, Q=23.42MVAR | V=0.48182pu | unc=0.134
+2026-11-12 21:37:13,575 [PSSE] t=0.712s | dt=2.0ms | skip_emt=False | P=66.79MW, Q=23.29MVAR | V=0.47171pu | unc=0.059
+2026-11-12 21:37:14,008 [PSSE] t=0.724s | dt=2.0ms | skip_emt=False | P=64.66MW, Q=23.14MVAR | V=0.46272pu | unc=0.118
+2026-11-12 21:37:14,444 [PSSE] t=0.738s | dt=2.0ms | skip_emt=False | P=60.94MW, Q=22.88MVAR | V=0.41438pu | unc=0.087
+2026-11-12 21:37:14,825 [PSSE] t=0.752s | dt=2.0ms | skip_emt=False | P=60.48MW, Q=22.85MVAR | V=0.47977pu | unc=0.115
+2026-11-12 21:37:15,252 [PSSE] t=0.764s | dt=2.0ms | skip_emt=False | P=59.21MW, Q=22.77MVAR | V=0.37456pu | unc=0.050
+2026-11-12 21:37:15,691 [PSSE] t=0.778s | dt=2.0ms | skip_emt=False | P=57.04MW, Q=22.63MVAR | V=0.52183pu | unc=0.126
+2026-11-12 21:37:16,073 [PSSE] t=0.792s | dt=2.0ms | skip_emt=False | P=57.51MW, Q=22.67MVAR | V=0.37368pu | unc=0.043
+2026-11-12 21:37:16,506 [PSSE] t=0.804s | dt=2.0ms | skip_emt=False | P=54.59MW, Q=22.49MVAR | V=0.53396pu | unc=0.135
+2026-11-12 21:37:16,951 [PSSE] t=0.818s | dt=2.0ms | skip_emt=False | P=56.81MW, Q=22.64MVAR | V=0.32939pu | unc=0.074
+2026-11-12 21:37:17,322 [PSSE] t=0.832s | dt=2.0ms | skip_emt=False | P=51.62MW, Q=22.31MVAR | V=0.41031pu | unc=0.000
+2026-11-12 21:37:17,760 [PSSE] t=0.844s | dt=2.0ms | skip_emt=False | P=56.87MW, Q=22.65MVAR | V=0.41331pu | unc=0.110
+2026-11-12 21:37:18,197 [PSSE] t=0.858s | dt=2.0ms | skip_emt=False | P=51.70MW, Q=22.54MVAR | V=0.28615pu | unc=0.000
+2026-11-12 21:37:18,570 [PSSE] t=0.872s | dt=2.0ms | skip_emt=False | P=49.35MW, Q=22.35MVAR | V=0.42376pu | unc=0.000
+2026-11-12 21:37:19,006 [PSSE] t=0.884s | dt=2.0ms | skip_emt=False | P=52.54MW, Q=22.46MVAR | V=0.25680pu | unc=0.000
+2026-11-12 21:37:19,444 [PSSE] t=0.898s | dt=2.0ms | skip_emt=False | P=47.15MW, Q=22.47MVAR | V=0.35735pu | unc=0.000
+2026-11-12 21:37:19,825 [PSSE] t=0.912s | dt=2.0ms | skip_emt=False | P=48.11MW, Q=22.35MVAR | V=0.30270pu | unc=0.000
+2026-11-12 21:37:20,256 [PSSE] t=0.924s | dt=2.0ms | skip_emt=False | P=56.97MW, Q=23.06MVAR | V=0.66029pu | unc=0.653
+2026-11-12 21:37:20,694 [PSSE] t=0.938s | dt=2.0ms | skip_emt=False | P=63.44MW, Q=23.36MVAR | V=0.38433pu | unc=0.829
+2026-11-12 21:37:21,078 [PSSE] t=0.952s | dt=2.0ms | skip_emt=False | P=59.42MW, Q=22.98MVAR | V=0.59995pu | unc=0.297
+2026-11-12 21:37:21,508 [PSSE] t=0.964s | dt=2.0ms | skip_emt=False | P=62.58MW, Q=23.21MVAR | V=0.31927pu | unc=0.000
+2026-11-12 21:37:21,944 [PSSE] t=0.978s | dt=2.0ms | skip_emt=False | P=61.52MW, Q=23.08MVAR | V=0.48519pu | unc=0.267
+2026-11-12 21:37:22,326 [PSSE] t=0.992s | dt=2.0ms | skip_emt=False | P=57.00MW, Q=23.06MVAR | V=0.49063pu | unc=0.000
+2026-11-12 21:37:22,757 [PSSE] t=1.004s | dt=2.0ms | skip_emt=False | P=59.28MW, Q=23.10MVAR | V=0.47969pu | unc=0.410
+2026-11-12 21:37:23,200 [PSSE] t=1.018s | dt=2.0ms | skip_emt=False | P=54.07MW, Q=23.25MVAR | V=0.95012pu | unc=0.000
+2026-11-12 21:37:23,570 [PSSE] t=1.032s | dt=2.0ms | skip_emt=False | P=73.85MW, Q=24.44MVAR | V=0.24039pu | unc=0.000
+2026-11-12 21:37:24,004 [PSSE] t=1.044s | dt=2.0ms | skip_emt=False | P=61.22MW, Q=23.54MVAR | V=0.41459pu | unc=1.194
+2026-11-12 21:37:24,442 [PSSE] t=1.058s | dt=2.0ms | skip_emt=False | P=59.97MW, Q=23.18MVAR | V=0.48094pu | unc=0.352
+2026-11-12 21:37:24,818 [PSSE] t=1.072s | dt=2.0ms | skip_emt=False | P=82.05MW, Q=24.96MVAR | V=0.40801pu | unc=0.299
+2026-11-12 21:37:25,254 [PSSE] t=1.084s | dt=2.0ms | skip_emt=False | P=65.06MW, Q=24.73MVAR | V=0.45803pu | unc=2.264
+2026-11-12 21:37:25,692 [PSSE] t=1.098s | dt=2.0ms | skip_emt=False | P=81.82MW, Q=24.45MVAR | V=0.88724pu | unc=0.298
+2026-11-12 21:37:26,070 [PSSE] t=1.112s | dt=2.0ms | skip_emt=False | P=97.84MW, Q=25.58MVAR | V=0.50702pu | unc=0.000
+2026-11-12 21:37:26,502 [PSSE] t=1.124s | dt=2.0ms | skip_emt=False | P=86.18MW, Q=24.71MVAR | V=0.52113pu | unc=0.229
+2026-11-12 21:37:26,937 [PSSE] t=1.138s | dt=2.0ms | skip_emt=False | P=83.25MW, Q=24.51MVAR | V=0.58486pu | unc=0.198
+2026-11-12 21:37:27,318 [PSSE] t=1.152s | dt=2.0ms | skip_emt=False | P=101.41MW, Q=25.17MVAR | V=0.27069pu | unc=0.127
+2026-11-12 21:37:27,747 [PSSE] t=1.164s | dt=2.0ms | skip_emt=False | P=88.31MW, Q=24.81MVAR | V=0.65091pu | unc=0.199
+2026-11-12 21:37:28,184 [PSSE] t=1.178s | dt=2.0ms | skip_emt=False | P=98.40MW, Q=25.41MVAR | V=0.90315pu | unc=0.118
+2026-11-12 21:37:28,562 [PSSE] t=1.192s | dt=2.0ms | skip_emt=False | P=99.75MW, Q=25.04MVAR | V=0.32213pu | unc=0.176
+2026-11-12 21:37:28,997 [PSSE] t=1.204s | dt=2.0ms | skip_emt=False | P=79.44MW, Q=23.94MVAR | V=0.51985pu | unc=0.148
+2026-11-12 21:37:29,456 [PSSE] t=1.218s | dt=2.0ms | skip_emt=False | P=66.77MW, Q=24.60MVAR | V=0.92753pu | unc=0.000
+2026-11-12 21:37:29,823 [PSSE] t=1.232s | dt=2.0ms | skip_emt=False | P=87.73MW, Q=25.12MVAR | V=0.55469pu | unc=0.207
+2026-11-12 21:37:30,259 [PSSE] t=1.244s | dt=2.0ms | skip_emt=False | P=107.56MW, Q=27.41MVAR | V=1.10075pu | unc=0.166
+2026-11-12 21:37:30,694 [PSSE] t=1.258s | dt=2.0ms | skip_emt=False | P=99.12MW, Q=27.19MVAR | V=0.41369pu | unc=0.184
+2026-11-12 21:37:31,071 [PSSE] t=1.272s | dt=2.0ms | skip_emt=False | P=88.39MW, Q=25.93MVAR | V=1.00213pu | unc=0.000
+2026-11-12 21:37:31,506 [PSSE] t=1.284s | dt=2.0ms | skip_emt=False | P=95.34MW, Q=26.15MVAR | V=0.46958pu | unc=0.000
+2026-11-12 21:37:31,881 [PSSE] t=1.298s | dt=2.0ms | skip_emt=False | P=91.83MW, Q=25.69MVAR | V=0.77087pu | unc=0.169
+2026-11-12 21:37:32,068 [PSSE] t=1.303s | dt=2.0ms | skip_emt=False | P=100.70MW, Q=26.12MVAR | V=0.92253pu | unc=0.111
+2026-11-12 21:37:32,130 [PSSE] t=1.304s | dt=2.1ms | skip_emt=True | P=0.00MW, Q=126.93MVAR | V=0.92253pu | unc=0.113
+2026-11-12 21:37:32,320 [PSSE] t=1.311s | dt=2.0ms | skip_emt=False | P=97.17MW, Q=26.04MVAR | V=0.18671pu | unc=0.069
+2026-11-12 21:37:32,699 [PSSE] t=1.325s | dt=2.0ms | skip_emt=False | P=84.98MW, Q=25.89MVAR | V=0.70014pu | unc=0.164
+2026-11-12 21:37:33,134 [PSSE] t=1.337s | dt=2.0ms | skip_emt=False | P=107.05MW, Q=28.20MVAR | V=0.77025pu | unc=0.185
+2026-11-12 21:37:33,575 [PSSE] t=1.351s | dt=2.0ms | skip_emt=False | P=121.47MW, Q=28.68MVAR | V=0.29666pu | unc=0.036
+2026-11-12 21:37:33,757 [PSSE] t=1.357s | dt=2.0ms | skip_emt=False | P=103.55MW, Q=27.31MVAR | V=0.29666pu | unc=0.148
+2026-11-12 21:37:33,827 [PSSE] t=1.359s | dt=2.1ms | skip_emt=True | P=120.85MW, Q=17.97MVAR | V=0.37805pu | unc=0.139
+2026-11-12 21:37:33,945 [PSSE] t=1.365s | dt=2.0ms | skip_emt=False | P=90.67MW, Q=26.18MVAR | V=0.37805pu | unc=0.148
+2026-11-12 21:37:34,380 [PSSE] t=1.377s | dt=2.0ms | skip_emt=False | P=100.30MW, Q=27.91MVAR | V=0.10975pu | unc=0.015
+2026-11-12 21:37:34,816 [PSSE] t=1.391s | dt=2.0ms | skip_emt=False | P=75.53MW, Q=26.43MVAR | V=0.38777pu | unc=0.137
+2026-11-12 21:37:35,190 [PSSE] t=1.405s | dt=2.0ms | skip_emt=False | P=91.04MW, Q=28.57MVAR | V=0.37586pu | unc=0.157
+2026-11-12 21:37:35,625 [PSSE] t=1.417s | dt=2.0ms | skip_emt=False | P=100.54MW, Q=29.75MVAR | V=1.13431pu | unc=0.165
+2026-11-12 21:37:35,875 [PSSE] t=1.425s | dt=2.0ms | skip_emt=False | P=92.40MW, Q=28.52MVAR | V=0.38968pu | unc=0.157
+2026-11-12 21:37:35,943 [PSSE] t=1.427s | dt=2.1ms | skip_emt=True | P=106.80MW, Q=18.85MVAR | V=1.16179pu | unc=0.150
+2026-11-12 21:37:36,063 [PSSE] t=1.431s | dt=2.0ms | skip_emt=False | P=98.34MW, Q=29.51MVAR | V=1.16179pu | unc=0.170
+2026-11-12 21:37:36,457 [PSSE] t=1.445s | dt=2.0ms | skip_emt=False | P=89.65MW, Q=28.34MVAR | V=1.14726pu | unc=0.149
+2026-11-12 21:37:36,887 [PSSE] t=1.457s | dt=2.0ms | skip_emt=False | P=93.91MW, Q=28.91MVAR | V=0.38374pu | unc=0.143
+2026-11-12 21:37:37,324 [PSSE] t=1.471s | dt=2.0ms | skip_emt=False | P=105.59MW, Q=30.88MVAR | V=0.37371pu | unc=0.154
+2026-11-12 21:37:37,710 [PSSE] t=1.485s | dt=2.0ms | skip_emt=False | P=105.38MW, Q=30.90MVAR | V=0.37984pu | unc=0.155
+2026-11-12 21:37:38,142 [PSSE] t=1.497s | dt=2.0ms | skip_emt=False | P=100.63MW, Q=30.21MVAR | V=1.16509pu | unc=0.145
+2026-11-12 21:37:38,391 [PSSE] t=1.505s | dt=2.0ms | skip_emt=False | P=98.84MW, Q=29.98MVAR | V=0.37167pu | unc=0.134
+2026-11-12 21:37:38,453 [PSSE] t=1.507s | dt=2.1ms | skip_emt=True | P=113.00MW, Q=17.35MVAR | V=0.37167pu | unc=0.127
+2026-11-12 21:37:38,470 [PSSE] t=1.509s | dt=2.0ms | skip_emt=False | P=94.69MW, Q=29.36MVAR | V=1.17118pu | unc=0.077
+2026-11-12 21:37:38,515 [PSSE] t=1.509s | dt=2.3ms | skip_emt=True | P=14.17MW, Q=77.75MVAR | V=1.17118pu | unc=0.145
+2026-11-12 21:37:38,517 [PSSE] t=1.511s | dt=2.0ms | skip_emt=False | P=90.80MW, Q=28.77MVAR | V=1.17118pu | unc=0.212
+2026-11-12 21:37:38,889 [PSSE] t=1.523s | dt=2.0ms | skip_emt=False | P=91.10MW, Q=28.91MVAR | V=0.36803pu | unc=0.118
+2026-11-12 21:37:39,279 [PSSE] t=1.537s | dt=2.0ms | skip_emt=False | P=108.67MW, Q=31.32MVAR | V=0.36474pu | unc=0.135
+2026-11-12 21:37:39,717 [PSSE] t=1.549s | dt=2.0ms | skip_emt=False | P=103.88MW, Q=30.68MVAR | V=1.16075pu | unc=0.138
+2026-11-12 21:37:39,903 [PSSE] t=1.555s | dt=2.0ms | skip_emt=False | P=97.95MW, Q=29.83MVAR | V=0.35755pu | unc=0.124
+2026-11-12 21:37:39,904 [PSSE] t=1.557s | dt=2.2ms | skip_emt=True | P=123.57MW, Q=12.16MVAR | V=0.35755pu | unc=0.118
+2026-11-12 21:37:39,906 [PSSE] t=1.557s | dt=2.0ms | skip_emt=False | P=97.95MW, Q=29.83MVAR | V=0.35755pu | unc=0.045
+2026-11-12 21:37:39,971 [PSSE] t=1.559s | dt=2.3ms | skip_emt=True | P=122.40MW, Q=12.80MVAR | V=1.11373pu | unc=0.119
+2026-11-12 21:37:40,088 [PSSE] t=1.563s | dt=2.0ms | skip_emt=False | P=102.21MW, Q=30.17MVAR | V=1.11373pu | unc=0.114
+2026-11-12 21:37:40,472 [PSSE] t=1.577s | dt=2.0ms | skip_emt=False | P=91.61MW, Q=28.47MVAR | V=1.11581pu | unc=0.110
+2026-11-12 21:37:40,901 [PSSE] t=1.589s | dt=2.0ms | skip_emt=False | P=100.39MW, Q=30.16MVAR | V=0.14443pu | unc=0.061
+2026-11-12 21:37:41,091 [PSSE] t=1.597s | dt=2.0ms | skip_emt=False | P=90.94MW, Q=29.20MVAR | V=0.60710pu | unc=0.145
+2026-11-12 21:37:41,152 [PSSE] t=1.597s | dt=5.0ms | skip_emt=True | P=88.13MW, Q=28.52MVAR | V=0.60710pu | unc=0.148
+2026-11-12 21:37:41,159 [PSSE] t=1.600s | dt=2.9ms | skip_emt=False | P=90.81MW, Q=28.88MVAR | V=0.14993pu | unc=0.141
+2026-11-12 21:37:41,160 [PSSE] t=1.602s | dt=6.0ms | skip_emt=True | P=450.00MW, Q=-200.00MVAR | V=0.14993pu | unc=0.000
+2026-11-12 21:37:41,161 [PSSE] t=1.604s | dt=2.0ms | skip_emt=False | P=90.81MW, Q=28.88MVAR | V=0.14993pu | unc=0.094
+2026-11-12 21:37:41,213 [PSSE] t=1.604s | dt=17.7ms | skip_emt=True | P=140.24MW, Q=17.69MVAR | V=0.14993pu | unc=0.063
+2026-11-12 21:37:41,214 [PSSE] t=1.608s | dt=3.8ms | skip_emt=False | P=86.71MW, Q=28.65MVAR | V=0.14993pu | unc=0.035
+2026-11-12 21:37:41,224 [PSSE] t=1.622s | dt=25.7ms | skip_emt=True | P=131.66MW, Q=22.07MVAR | V=0.34957pu | unc=0.070
+2026-11-12 21:37:41,523 [PSSE] t=1.632s | dt=2.0ms | skip_emt=False | P=94.98MW, Q=28.52MVAR | V=1.03280pu | unc=0.059
+2026-11-12 21:37:41,957 [PSSE] t=1.646s | dt=2.0ms | skip_emt=False | P=81.30MW, Q=26.31MVAR | V=0.43216pu | unc=0.105
+2026-11-12 21:37:42,336 [PSSE] t=1.660s | dt=2.0ms | skip_emt=False | P=91.64MW, Q=26.66MVAR | V=0.36905pu | unc=0.041
+2026-11-12 21:37:42,762 [PSSE] t=1.672s | dt=2.0ms | skip_emt=False | P=91.89MW, Q=25.79MVAR | V=0.92544pu | unc=0.082
+2026-11-12 21:37:43,197 [PSSE] t=1.686s | dt=2.0ms | skip_emt=False | P=88.58MW, Q=25.05MVAR | V=0.61500pu | unc=0.129
+2026-11-12 21:37:43,577 [PSSE] t=1.700s | dt=2.0ms | skip_emt=False | P=78.06MW, Q=25.30MVAR | V=0.14118pu | unc=0.000
+2026-11-12 21:37:44,026 [PSSE] t=1.712s | dt=2.0ms | skip_emt=False | P=74.42MW, Q=25.20MVAR | V=0.11799pu | unc=0.000
+2026-11-12 21:37:44,473 [PSSE] t=1.726s | dt=2.0ms | skip_emt=False | P=73.50MW, Q=25.45MVAR | V=0.13490pu | unc=0.121
+2026-11-12 21:37:44,854 [PSSE] t=1.740s | dt=2.0ms | skip_emt=False | P=68.20MW, Q=25.64MVAR | V=0.63242pu | unc=0.122
+2026-11-12 21:37:45,292 [PSSE] t=1.752s | dt=2.0ms | skip_emt=False | P=60.68MW, Q=25.78MVAR | V=0.42827pu | unc=0.411
+2026-11-12 21:37:45,731 [PSSE] t=1.766s | dt=2.0ms | skip_emt=False | P=54.45MW, Q=25.06MVAR | V=0.15625pu | unc=0.000
+2026-11-12 21:37:45,982 [PSSE] t=1.774s | dt=2.0ms | skip_emt=False | P=71.28MW, Q=26.03MVAR | V=0.82970pu | unc=0.117
+2026-11-12 21:37:45,989 [PSSE] t=1.776s | dt=2.1ms | skip_emt=True | P=40.38MW, Q=54.21MVAR | V=0.39344pu | unc=0.123
+2026-11-12 21:37:46,047 [PSSE] t=1.780s | dt=2.0ms | skip_emt=False | P=69.54MW, Q=25.73MVAR | V=0.39344pu | unc=0.103
+2026-11-12 21:37:46,484 [PSSE] t=1.792s | dt=2.0ms | skip_emt=False | P=73.48MW, Q=25.12MVAR | V=0.15125pu | unc=0.000
+2026-11-12 21:37:46,920 [PSSE] t=1.806s | dt=2.0ms | skip_emt=False | P=62.56MW, Q=24.77MVAR | V=0.44996pu | unc=0.097
+2026-11-12 21:37:47,299 [PSSE] t=1.820s | dt=2.0ms | skip_emt=False | P=85.87MW, Q=25.32MVAR | V=0.26934pu | unc=0.000
+2026-11-12 21:37:47,724 [PSSE] t=1.832s | dt=2.0ms | skip_emt=False | P=66.35MW, Q=24.05MVAR | V=0.36198pu | unc=0.073
+2026-11-12 21:37:48,176 [PSSE] t=1.846s | dt=2.0ms | skip_emt=False | P=65.05MW, Q=23.89MVAR | V=0.70735pu | unc=0.141
+2026-11-12 21:37:48,559 [PSSE] t=1.860s | dt=2.0ms | skip_emt=False | P=62.38MW, Q=23.93MVAR | V=0.16885pu | unc=0.000
+2026-11-12 21:37:48,987 [PSSE] t=1.872s | dt=2.0ms | skip_emt=False | P=51.71MW, Q=23.90MVAR | V=0.31767pu | unc=0.000
+2026-11-12 21:37:49,425 [PSSE] t=1.886s | dt=2.0ms | skip_emt=False | P=58.45MW, Q=23.81MVAR | V=0.87011pu | unc=0.133
+2026-11-12 21:37:49,488 [PSSE] t=1.888s | dt=2.0ms | skip_emt=False | P=65.31MW, Q=24.32MVAR | V=0.87011pu | unc=0.145
+2026-11-12 21:37:49,552 [PSSE] t=1.890s | dt=2.1ms | skip_emt=True | P=38.63MW, Q=95.03MVAR | V=0.87011pu | unc=0.156
+2026-11-12 21:37:49,807 [PSSE] t=1.900s | dt=2.0ms | skip_emt=False | P=88.85MW, Q=25.96MVAR | V=0.27084pu | unc=0.192
+2026-11-12 21:37:50,237 [PSSE] t=1.912s | dt=2.0ms | skip_emt=False | P=71.25MW, Q=25.10MVAR | V=0.17500pu | unc=0.000
+2026-11-12 21:37:50,684 [PSSE] t=1.926s | dt=2.0ms | skip_emt=False | P=58.13MW, Q=24.20MVAR | V=0.73480pu | unc=0.058
+2026-11-12 21:37:51,065 [PSSE] t=1.940s | dt=2.0ms | skip_emt=False | P=72.04MW, Q=24.74MVAR | V=0.45827pu | unc=0.158
+2026-11-12 21:37:51,498 [PSSE] t=1.952s | dt=2.0ms | skip_emt=False | P=65.32MW, Q=23.85MVAR | V=0.60773pu | unc=0.172
+2026-11-12 21:37:51,936 [PSSE] t=1.966s | dt=2.0ms | skip_emt=False | P=88.25MW, Q=24.40MVAR | V=0.88423pu | unc=0.149
+2026-11-12 21:37:52,309 [PSSE] t=1.980s | dt=2.0ms | skip_emt=False | P=88.47MW, Q=24.40MVAR | V=0.44182pu | unc=0.176
+2026-11-12 21:37:52,742 [PSSE] t=1.992s | dt=2.0ms | skip_emt=False | P=71.42MW, Q=23.41MVAR | V=0.55517pu | unc=0.602
+2026-11-12 21:37:53,179 [PSSE] t=2.006s | dt=2.0ms | skip_emt=False | P=65.75MW, Q=23.81MVAR | V=0.20575pu | unc=0.000
+2026-11-12 21:37:53,570 [PSSE] t=2.020s | dt=2.0ms | skip_emt=False | P=59.46MW, Q=23.33MVAR | V=0.67347pu | unc=0.163
+2026-11-12 21:37:54,002 [PSSE] t=2.032s | dt=2.0ms | skip_emt=False | P=69.60MW, Q=23.88MVAR | V=0.47276pu | unc=0.154
+2026-11-12 21:37:54,453 [PSSE] t=2.046s | dt=2.0ms | skip_emt=False | P=70.87MW, Q=24.75MVAR | V=0.09670pu | unc=0.000
+2026-11-12 21:37:54,833 [PSSE] t=2.060s | dt=2.0ms | skip_emt=False | P=74.64MW, Q=25.28MVAR | V=0.10447pu | unc=0.184
+2026-11-12 21:37:55,266 [PSSE] t=2.072s | dt=2.0ms | skip_emt=False | P=69.80MW, Q=25.73MVAR | V=0.62658pu | unc=0.182
+2026-11-12 21:37:55,701 [PSSE] t=2.086s | dt=2.0ms | skip_emt=False | P=65.82MW, Q=26.01MVAR | V=0.63050pu | unc=0.184
+2026-11-12 21:37:56,082 [PSSE] t=2.100s | dt=2.0ms | skip_emt=False | P=64.52MW, Q=26.10MVAR | V=0.63389pu | unc=0.000
+2026-11-12 21:37:56,510 [PSSE] t=2.112s | dt=2.0ms | skip_emt=False | P=66.29MW, Q=26.13MVAR | V=0.10441pu | unc=0.000
+2026-11-12 21:37:56,953 [PSSE] t=2.126s | dt=2.0ms | skip_emt=False | P=69.10MW, Q=26.05MVAR | V=0.11343pu | unc=0.187
+2026-11-12 21:37:57,320 [PSSE] t=2.140s | dt=2.0ms | skip_emt=False | P=65.03MW, Q=26.10MVAR | V=0.61813pu | unc=0.189
+2026-11-12 21:37:57,769 [PSSE] t=2.152s | dt=2.0ms | skip_emt=False | P=62.35MW, Q=26.10MVAR | V=0.59449pu | unc=0.186
+2026-11-12 21:37:58,205 [PSSE] t=2.166s | dt=2.0ms | skip_emt=False | P=62.28MW, Q=25.97MVAR | V=0.11434pu | unc=0.000
+2026-11-12 21:37:58,577 [PSSE] t=2.180s | dt=2.0ms | skip_emt=False | P=65.48MW, Q=25.79MVAR | V=0.11802pu | unc=0.000
+2026-11-12 21:37:59,012 [PSSE] t=2.192s | dt=2.0ms | skip_emt=False | P=67.41MW, Q=25.70MVAR | V=0.12145pu | unc=0.000
+2026-11-12 21:37:59,450 [PSSE] t=2.206s | dt=2.0ms | skip_emt=False | P=64.83MW, Q=25.69MVAR | V=0.58919pu | unc=0.188
+2026-11-12 21:37:59,829 [PSSE] t=2.220s | dt=2.0ms | skip_emt=False | P=56.89MW, Q=25.90MVAR | V=0.46014pu | unc=0.151
+2026-11-12 21:38:00,257 [PSSE] t=2.232s | dt=2.0ms | skip_emt=False | P=53.53MW, Q=24.44MVAR | V=0.30127pu | unc=0.000
+2026-11-12 21:38:00,707 [PSSE] t=2.246s | dt=2.0ms | skip_emt=False | P=57.57MW, Q=24.38MVAR | V=0.71110pu | unc=0.192
+2026-11-12 21:38:01,087 [PSSE] t=2.260s | dt=2.0ms | skip_emt=False | P=63.39MW, Q=24.18MVAR | V=0.68557pu | unc=0.140
+2026-11-12 21:38:01,515 [PSSE] t=2.273s | dt=2.0ms | skip_emt=False | P=69.18MW, Q=24.44MVAR | V=0.27145pu | unc=0.014
+2026-11-12 21:38:01,952 [PSSE] t=2.286s | dt=2.0ms | skip_emt=False | P=66.80MW, Q=24.38MVAR | V=0.15523pu | unc=0.000
+2026-11-12 21:38:02,337 [PSSE] t=2.300s | dt=2.0ms | skip_emt=False | P=64.23MW, Q=24.56MVAR | V=0.15925pu | unc=0.183
+2026-11-12 21:38:02,764 [PSSE] t=2.313s | dt=2.0ms | skip_emt=False | P=59.63MW, Q=24.65MVAR | V=0.51540pu | unc=0.176
+2026-11-12 21:38:03,226 [PSSE] t=2.326s | dt=2.0ms | skip_emt=False | P=55.32MW, Q=24.69MVAR | V=0.23542pu | unc=0.000
+2026-11-12 21:38:03,597 [PSSE] t=2.340s | dt=2.0ms | skip_emt=False | P=52.68MW, Q=24.25MVAR | V=0.48756pu | unc=0.138
+2026-11-12 21:38:04,048 [PSSE] t=2.353s | dt=2.0ms | skip_emt=False | P=52.16MW, Q=23.47MVAR | V=0.29673pu | unc=0.000
+2026-11-12 21:38:04,485 [PSSE] t=2.366s | dt=2.0ms | skip_emt=False | P=73.53MW, Q=24.92MVAR | V=0.83112pu | unc=0.331
+2026-11-12 21:38:04,860 [PSSE] t=2.380s | dt=2.0ms | skip_emt=False | P=70.98MW, Q=24.42MVAR | V=0.64756pu | unc=0.523
+2026-11-12 21:38:05,300 [PSSE] t=2.393s | dt=2.0ms | skip_emt=False | P=96.48MW, Q=25.26MVAR | V=0.43778pu | unc=0.000
+2026-11-12 21:38:05,737 [PSSE] t=2.406s | dt=2.0ms | skip_emt=False | P=75.26MW, Q=25.04MVAR | V=0.10827pu | unc=0.000
+2026-11-12 21:38:06,120 [PSSE] t=2.420s | dt=2.0ms | skip_emt=False | P=93.73MW, Q=26.56MVAR | V=0.30605pu | unc=0.307
+2026-11-12 21:38:06,550 [PSSE] t=2.433s | dt=2.0ms | skip_emt=False | P=69.61MW, Q=24.82MVAR | V=0.26542pu | unc=0.073
+2026-11-12 21:38:06,989 [PSSE] t=2.446s | dt=2.0ms | skip_emt=False | P=71.24MW, Q=24.47MVAR | V=0.49929pu | unc=0.295
+2026-11-12 21:38:07,390 [PSSE] t=2.460s | dt=2.0ms | skip_emt=False | P=62.17MW, Q=23.56MVAR | V=0.36445pu | unc=0.000
+2026-11-12 21:38:07,821 [PSSE] t=2.473s | dt=2.0ms | skip_emt=False | P=63.95MW, Q=23.54MVAR | V=0.70232pu | unc=0.238
+2026-11-12 21:38:08,259 [PSSE] t=2.486s | dt=2.0ms | skip_emt=False | P=78.24MW, Q=24.76MVAR | V=0.21247pu | unc=0.008
+2026-11-12 21:38:08,642 [PSSE] t=2.500s | dt=2.0ms | skip_emt=False | P=65.73MW, Q=24.16MVAR | V=0.41940pu | unc=0.143
+2026-11-12 21:38:09,070 [PSSE] t=2.513s | dt=2.0ms | skip_emt=False | P=59.94MW, Q=23.36MVAR | V=0.40699pu | unc=0.105
+2026-11-12 21:38:09,511 [PSSE] t=2.526s | dt=2.0ms | skip_emt=False | P=52.40MW, Q=23.07MVAR | V=0.25810pu | unc=0.000
+2026-11-12 21:38:09,880 [PSSE] t=2.540s | dt=2.0ms | skip_emt=False | P=46.72MW, Q=23.08MVAR | V=0.26908pu | unc=0.000
+2026-11-12 21:38:10,318 [PSSE] t=2.553s | dt=2.0ms | skip_emt=False | P=51.31MW, Q=23.21MVAR | V=0.25631pu | unc=0.000
+2026-11-12 21:38:10,753 [PSSE] t=2.566s | dt=2.0ms | skip_emt=False | P=45.39MW, Q=24.19MVAR | V=0.11510pu | unc=0.000
+2026-11-12 21:38:11,126 [PSSE] t=2.580s | dt=2.0ms | skip_emt=False | P=42.99MW, Q=23.46MVAR | V=0.35695pu | unc=0.000
+2026-11-12 21:38:11,562 [PSSE] t=2.593s | dt=2.0ms | skip_emt=False | P=41.39MW, Q=24.07MVAR | V=0.54561pu | unc=7.119
+2026-11-12 21:38:11,997 [PSSE] t=2.607s | dt=2.0ms | skip_emt=False | P=54.88MW, Q=23.92MVAR | V=0.50454pu | unc=0.704
+2026-11-12 21:38:12,382 [PSSE] t=2.621s | dt=2.0ms | skip_emt=False | P=58.55MW, Q=23.62MVAR | V=0.14607pu | unc=0.000
+2026-11-12 21:38:12,806 [PSSE] t=2.633s | dt=2.0ms | skip_emt=False | P=73.52MW, Q=25.58MVAR | V=1.00122pu | unc=0.000
+2026-11-12 21:38:13,244 [PSSE] t=2.647s | dt=2.0ms | skip_emt=False | P=89.75MW, Q=25.59MVAR | V=0.33891pu | unc=1.347
+2026-11-12 21:38:13,625 [PSSE] t=2.661s | dt=2.0ms | skip_emt=False | P=70.04MW, Q=25.33MVAR | V=0.27361pu | unc=0.000
+2026-11-12 21:38:14,053 [PSSE] t=2.673s | dt=2.0ms | skip_emt=False | P=72.70MW, Q=25.31MVAR | V=0.99191pu | unc=0.261
+2026-11-12 21:38:14,489 [PSSE] t=2.687s | dt=2.0ms | skip_emt=False | P=97.39MW, Q=26.22MVAR | V=0.35633pu | unc=2.145
+2026-11-12 21:38:14,871 [PSSE] t=2.701s | dt=2.0ms | skip_emt=False | P=80.41MW, Q=24.75MVAR | V=1.02596pu | unc=0.351
+2026-11-12 21:38:15,303 [PSSE] t=2.713s | dt=2.0ms | skip_emt=False | P=92.85MW, Q=25.96MVAR | V=0.46002pu | unc=0.378
+2026-11-12 21:38:15,751 [PSSE] t=2.727s | dt=2.0ms | skip_emt=False | P=72.66MW, Q=25.02MVAR | V=0.36779pu | unc=0.000
+2026-11-12 21:38:16,122 [PSSE] t=2.741s | dt=2.0ms | skip_emt=False | P=77.56MW, Q=25.49MVAR | V=1.06272pu | unc=0.167
+2026-11-12 21:38:16,578 [PSSE] t=2.753s | dt=2.0ms | skip_emt=False | P=80.27MW, Q=25.82MVAR | V=1.02627pu | unc=0.144
+2026-11-12 21:38:17,021 [PSSE] t=2.767s | dt=2.0ms | skip_emt=False | P=80.61MW, Q=25.58MVAR | V=0.35393pu | unc=0.632
+2026-11-12 21:38:17,398 [PSSE] t=2.781s | dt=2.0ms | skip_emt=False | P=93.06MW, Q=26.62MVAR | V=0.33878pu | unc=1.381
+2026-11-12 21:38:17,841 [PSSE] t=2.793s | dt=2.0ms | skip_emt=False | P=100.75MW, Q=28.52MVAR | V=0.33626pu | unc=0.000
+2026-11-12 21:38:18,282 [PSSE] t=2.807s | dt=2.0ms | skip_emt=False | P=98.36MW, Q=29.04MVAR | V=1.16126pu | unc=0.439
+2026-11-12 21:38:18,671 [PSSE] t=2.821s | dt=2.0ms | skip_emt=False | P=81.35MW, Q=27.02MVAR | V=1.13284pu | unc=1.124
+2026-11-12 21:38:19,121 [PSSE] t=2.833s | dt=2.0ms | skip_emt=False | P=87.11MW, Q=27.90MVAR | V=0.32620pu | unc=0.588
+2026-11-12 21:38:19,580 [PSSE] t=2.847s | dt=2.0ms | skip_emt=False | P=92.34MW, Q=28.24MVAR | V=0.32494pu | unc=1.512
+2026-11-12 21:38:19,981 [PSSE] t=2.861s | dt=2.0ms | skip_emt=False | P=102.58MW, Q=29.49MVAR | V=0.33219pu | unc=0.000
+2026-11-12 21:38:20,417 [PSSE] t=2.873s | dt=2.0ms | skip_emt=False | P=91.74MW, Q=28.20MVAR | V=1.11889pu | unc=0.386
+2026-11-12 21:38:20,858 [PSSE] t=2.887s | dt=2.0ms | skip_emt=False | P=89.00MW, Q=27.54MVAR | V=1.02457pu | unc=0.242
+2026-11-12 21:38:21,247 [PSSE] t=2.901s | dt=2.0ms | skip_emt=False | P=88.28MW, Q=27.05MVAR | V=0.14460pu | unc=0.608
+2026-11-12 21:38:21,679 [PSSE] t=2.913s | dt=2.0ms | skip_emt=False | P=71.09MW, Q=26.04MVAR | V=0.50289pu | unc=0.470
+2026-11-12 21:38:22,130 [PSSE] t=2.927s | dt=2.0ms | skip_emt=False | P=61.49MW, Q=26.07MVAR | V=0.63581pu | unc=0.000
+2026-11-12 21:38:22,506 [PSSE] t=2.941s | dt=2.0ms | skip_emt=False | P=65.80MW, Q=25.99MVAR | V=0.12995pu | unc=0.000
+2026-11-12 21:38:22,941 [PSSE] t=2.953s | dt=2.0ms | skip_emt=False | P=67.35MW, Q=25.89MVAR | V=0.11888pu | unc=0.000
+2026-11-12 21:38:23,378 [PSSE] t=2.967s | dt=2.0ms | skip_emt=False | P=70.49MW, Q=25.92MVAR | V=0.63835pu | unc=0.253
+2026-11-12 21:38:23,752 [PSSE] t=2.981s | dt=2.0ms | skip_emt=False | P=66.63MW, Q=26.09MVAR | V=0.71372pu | unc=0.247
+2026-11-12 21:38:24,188 [PSSE] t=2.993s | dt=2.0ms | skip_emt=False | P=65.68MW, Q=25.39MVAR | V=0.63931pu | unc=0.714
+2026-11-12 21:38:24,622 [PSSE] t=3.007s | dt=2.0ms | skip_emt=False | P=66.18MW, Q=25.72MVAR | V=0.11628pu | unc=0.000
+2026-11-12 21:38:25,003 [PSSE] t=3.021s | dt=2.1ms | skip_emt=False | P=75.35MW, Q=25.80MVAR | V=0.12221pu | unc=0.000
+2026-11-12 21:38:25,437 [PSSE] t=3.033s | dt=2.0ms | skip_emt=False | P=59.06MW, Q=25.13MVAR | V=0.31243pu | unc=0.059
+2026-11-12 21:38:25,871 [PSSE] t=3.047s | dt=2.0ms | skip_emt=False | P=49.81MW, Q=24.05MVAR | V=0.31031pu | unc=0.000
+2026-11-12 21:38:26,254 [PSSE] t=3.061s | dt=2.0ms | skip_emt=False | P=45.12MW, Q=24.37MVAR | V=1.06307pu | unc=0.389
+2026-11-12 21:38:26,684 [PSSE] t=3.073s | dt=2.0ms | skip_emt=False | P=80.30MW, Q=26.88MVAR | V=0.57091pu | unc=0.285
+2026-11-12 21:38:27,120 [PSSE] t=3.087s | dt=2.0ms | skip_emt=False | P=88.18MW, Q=26.45MVAR | V=0.51502pu | unc=0.276
+2026-11-12 21:38:27,504 [PSSE] t=3.101s | dt=2.0ms | skip_emt=False | P=74.39MW, Q=26.03MVAR | V=1.06452pu | unc=0.000
+2026-11-12 21:38:27,939 [PSSE] t=3.113s | dt=2.0ms | skip_emt=False | P=84.99MW, Q=27.94MVAR | V=0.09778pu | unc=0.000
+2026-11-12 21:38:28,381 [PSSE] t=3.127s | dt=2.0ms | skip_emt=False | P=82.26MW, Q=26.95MVAR | V=0.10766pu | unc=0.235
+2026-11-12 21:38:28,752 [PSSE] t=3.141s | dt=2.0ms | skip_emt=False | P=74.83MW, Q=26.84MVAR | V=0.67114pu | unc=0.211
+2026-11-12 21:38:29,190 [PSSE] t=3.153s | dt=2.0ms | skip_emt=False | P=68.09MW, Q=26.00MVAR | V=0.53156pu | unc=0.174
+2026-11-12 21:38:29,637 [PSSE] t=3.167s | dt=2.0ms | skip_emt=False | P=64.91MW, Q=24.66MVAR | V=0.16047pu | unc=0.138
+2026-11-12 21:38:30,007 [PSSE] t=3.181s | dt=2.0ms | skip_emt=False | P=57.84MW, Q=24.94MVAR | V=0.56896pu | unc=0.181
+2026-11-12 21:38:30,442 [PSSE] t=3.193s | dt=2.0ms | skip_emt=False | P=55.93MW, Q=25.03MVAR | V=1.07118pu | unc=0.133
+2026-11-12 21:38:30,880 [PSSE] t=3.207s | dt=2.0ms | skip_emt=False | P=74.93MW, Q=26.26MVAR | V=0.39683pu | unc=0.182
+2026-11-12 21:38:31,255 [PSSE] t=3.221s | dt=2.0ms | skip_emt=False | P=62.53MW, Q=24.54MVAR | V=0.38527pu | unc=0.121
+2026-11-12 21:38:31,688 [PSSE] t=3.233s | dt=2.0ms | skip_emt=False | P=55.95MW, Q=23.45MVAR | V=0.38510pu | unc=0.065
+2026-11-12 21:38:32,126 [PSSE] t=3.247s | dt=2.0ms | skip_emt=False | P=75.71MW, Q=25.72MVAR | V=0.35645pu | unc=0.155
+2026-11-12 21:38:32,506 [PSSE] t=3.261s | dt=2.0ms | skip_emt=False | P=92.91MW, Q=28.34MVAR | V=0.29552pu | unc=0.160
+2026-11-12 21:38:32,936 [PSSE] t=3.273s | dt=2.0ms | skip_emt=False | P=80.15MW, Q=26.32MVAR | V=0.60631pu | unc=0.201
+2026-11-12 21:38:33,371 [PSSE] t=3.287s | dt=2.0ms | skip_emt=False | P=71.32MW, Q=26.48MVAR | V=0.63102pu | unc=0.192
+2026-11-12 21:38:33,750 [PSSE] t=3.301s | dt=2.0ms | skip_emt=False | P=78.93MW, Q=25.98MVAR | V=0.10635pu | unc=0.185
+2026-11-12 21:38:34,178 [PSSE] t=3.313s | dt=2.1ms | skip_emt=False | P=73.40MW, Q=26.20MVAR | V=0.67309pu | unc=0.182
+2026-11-12 21:38:34,614 [PSSE] t=3.327s | dt=2.0ms | skip_emt=False | P=89.47MW, Q=26.95MVAR | V=0.14564pu | unc=0.039
+2026-11-12 21:38:34,989 [PSSE] t=3.341s | dt=2.0ms | skip_emt=False | P=69.65MW, Q=25.95MVAR | V=0.31932pu | unc=0.085
+2026-11-12 21:38:35,424 [PSSE] t=3.353s | dt=2.0ms | skip_emt=False | P=58.91MW, Q=24.65MVAR | V=0.10001pu | unc=0.000
+2026-11-12 21:38:35,873 [PSSE] t=3.367s | dt=2.0ms | skip_emt=False | P=65.10MW, Q=25.24MVAR | V=0.12057pu | unc=0.169
+2026-11-12 21:38:36,243 [PSSE] t=3.381s | dt=2.0ms | skip_emt=False | P=62.17MW, Q=25.53MVAR | V=0.60540pu | unc=0.176
+2026-11-12 21:38:36,680 [PSSE] t=3.393s | dt=2.0ms | skip_emt=False | P=59.55MW, Q=25.76MVAR | V=0.61638pu | unc=0.184
+2026-11-12 21:38:37,117 [PSSE] t=3.407s | dt=2.0ms | skip_emt=False | P=61.64MW, Q=25.79MVAR | V=0.12658pu | unc=0.000
+2026-11-12 21:38:37,490 [PSSE] t=3.421s | dt=2.0ms | skip_emt=False | P=66.32MW, Q=25.80MVAR | V=0.10087pu | unc=0.000
+2026-11-12 21:38:37,930 [PSSE] t=3.433s | dt=2.0ms | skip_emt=False | P=75.74MW, Q=26.46MVAR | V=0.73653pu | unc=0.195
+2026-11-12 21:38:38,367 [PSSE] t=3.447s | dt=2.0ms | skip_emt=False | P=71.51MW, Q=26.13MVAR | V=0.63157pu | unc=0.196
+2026-11-12 21:38:38,746 [PSSE] t=3.461s | dt=2.0ms | skip_emt=False | P=82.77MW, Q=26.09MVAR | V=0.32727pu | unc=0.000
+2026-11-12 21:38:39,174 [PSSE] t=3.473s | dt=2.0ms | skip_emt=False | P=71.60MW, Q=24.64MVAR | V=0.54178pu | unc=0.152
+2026-11-12 21:38:39,612 [PSSE] t=3.487s | dt=2.0ms | skip_emt=False | P=61.68MW, Q=25.04MVAR | V=0.53542pu | unc=0.148
+2026-11-12 21:38:39,991 [PSSE] t=3.501s | dt=2.0ms | skip_emt=False | P=58.72MW, Q=25.22MVAR | V=0.60529pu | unc=0.000
+2026-11-12 21:38:40,423 [PSSE] t=3.513s | dt=2.0ms | skip_emt=False | P=61.60MW, Q=25.45MVAR | V=0.12197pu | unc=0.000
+2026-11-12 21:38:40,861 [PSSE] t=3.527s | dt=2.0ms | skip_emt=False | P=64.47MW, Q=25.58MVAR | V=0.10703pu | unc=0.000
+2026-11-12 21:38:41,236 [PSSE] t=3.541s | dt=2.0ms | skip_emt=False | P=62.21MW, Q=25.85MVAR | V=0.61936pu | unc=0.188
+2026-11-12 21:38:41,670 [PSSE] t=3.553s | dt=2.0ms | skip_emt=False | P=60.44MW, Q=25.85MVAR | V=0.57388pu | unc=0.183
+2026-11-12 21:38:42,128 [PSSE] t=3.567s | dt=2.0ms | skip_emt=False | P=57.57MW, Q=25.92MVAR | V=0.51160pu | unc=0.000
+2026-11-12 21:38:42,498 [PSSE] t=3.581s | dt=2.0ms | skip_emt=False | P=73.99MW, Q=25.34MVAR | V=0.89640pu | unc=0.146
+2026-11-12 21:38:42,932 [PSSE] t=3.593s | dt=2.0ms | skip_emt=False | P=75.57MW, Q=25.38MVAR | V=0.39356pu | unc=0.163
+2026-11-12 21:38:43,368 [PSSE] t=3.607s | dt=2.0ms | skip_emt=False | P=85.51MW, Q=25.26MVAR | V=0.95088pu | unc=0.104
+2026-11-12 21:38:43,741 [PSSE] t=3.621s | dt=2.0ms | skip_emt=False | P=83.30MW, Q=25.00MVAR | V=1.01920pu | unc=0.077
+2026-11-12 21:38:44,185 [PSSE] t=3.633s | dt=2.0ms | skip_emt=False | P=81.45MW, Q=25.01MVAR | V=0.11755pu | unc=0.241
+2026-11-12 21:38:44,627 [PSSE] t=3.647s | dt=2.0ms | skip_emt=False | P=68.79MW, Q=25.37MVAR | V=0.55854pu | unc=0.324
+2026-11-12 21:38:45,026 [PSSE] t=3.661s | dt=2.0ms | skip_emt=False | P=61.36MW, Q=25.58MVAR | V=0.41344pu | unc=0.219
+2026-11-12 21:38:45,473 [PSSE] t=3.673s | dt=2.0ms | skip_emt=False | P=78.18MW, Q=25.58MVAR | V=0.96758pu | unc=0.120
+2026-11-12 21:38:45,912 [PSSE] t=3.687s | dt=2.0ms | skip_emt=False | P=71.13MW, Q=24.51MVAR | V=0.63026pu | unc=0.398
+2026-11-12 21:38:46,294 [PSSE] t=3.701s | dt=2.0ms | skip_emt=False | P=67.79MW, Q=24.73MVAR | V=0.31609pu | unc=0.000
+2026-11-12 21:38:46,731 [PSSE] t=3.713s | dt=2.0ms | skip_emt=False | P=71.38MW, Q=24.68MVAR | V=0.97065pu | unc=0.132
+2026-11-12 21:38:47,169 [PSSE] t=3.727s | dt=2.0ms | skip_emt=False | P=67.96MW, Q=25.75MVAR | V=0.08666pu | unc=0.000
+2026-11-12 21:38:47,563 [PSSE] t=3.741s | dt=2.0ms | skip_emt=False | P=79.02MW, Q=26.95MVAR | V=0.85371pu | unc=0.712
+2026-11-12 21:38:48,014 [PSSE] t=3.753s | dt=2.0ms | skip_emt=False | P=91.57MW, Q=26.88MVAR | V=0.86136pu | unc=0.429
+2026-11-12 21:38:48,463 [PSSE] t=3.767s | dt=2.0ms | skip_emt=False | P=88.47MW, Q=26.09MVAR | V=0.97770pu | unc=0.717
+2026-11-12 21:38:48,840 [PSSE] t=3.781s | dt=2.0ms | skip_emt=False | P=95.21MW, Q=26.75MVAR | V=0.17041pu | unc=0.562
+2026-11-12 21:38:49,277 [PSSE] t=3.793s | dt=2.0ms | skip_emt=False | P=70.46MW, Q=25.33MVAR | V=0.67654pu | unc=1.482
+2026-11-12 21:38:49,714 [PSSE] t=3.807s | dt=2.0ms | skip_emt=False | P=81.55MW, Q=25.46MVAR | V=0.60445pu | unc=0.328
+2026-11-12 21:38:50,093 [PSSE] t=3.821s | dt=2.0ms | skip_emt=False | P=68.54MW, Q=24.22MVAR | V=0.41562pu | unc=0.264
+2026-11-12 21:38:50,538 [PSSE] t=3.834s | dt=2.0ms | skip_emt=False | P=61.05MW, Q=23.37MVAR | V=0.68889pu | unc=0.157
+2026-11-12 21:38:50,967 [PSSE] t=3.847s | dt=2.0ms | skip_emt=False | P=70.33MW, Q=24.84MVAR | V=0.09163pu | unc=0.000
+2026-11-12 21:38:51,349 [PSSE] t=3.861s | dt=2.0ms | skip_emt=False | P=84.68MW, Q=26.30MVAR | V=0.39469pu | unc=0.179
+2026-11-12 21:38:51,778 [PSSE] t=3.874s | dt=2.0ms | skip_emt=False | P=90.81MW, Q=25.98MVAR | V=0.97170pu | unc=0.092
+2026-11-12 21:38:52,211 [PSSE] t=3.887s | dt=2.0ms | skip_emt=False | P=74.16MW, Q=24.66MVAR | V=0.39507pu | unc=0.169
+2026-11-12 21:38:52,596 [PSSE] t=3.901s | dt=2.0ms | skip_emt=False | P=68.67MW, Q=23.96MVAR | V=0.58610pu | unc=0.155
+2026-11-12 21:38:53,026 [PSSE] t=3.914s | dt=2.0ms | skip_emt=False | P=75.91MW, Q=24.29MVAR | V=0.62117pu | unc=0.187
+2026-11-12 21:38:53,462 [PSSE] t=3.927s | dt=2.0ms | skip_emt=False | P=79.88MW, Q=24.24MVAR | V=0.91593pu | unc=0.113
+2026-11-12 21:38:53,837 [PSSE] t=3.941s | dt=2.0ms | skip_emt=False | P=83.76MW, Q=24.12MVAR | V=0.36486pu | unc=0.127
+2026-11-12 21:38:54,271 [PSSE] t=3.954s | dt=2.0ms | skip_emt=False | P=64.54MW, Q=24.52MVAR | V=0.19088pu | unc=0.000
+2026-11-12 21:38:54,734 [PSSE] t=3.967s | dt=2.0ms | skip_emt=False | P=78.24MW, Q=25.71MVAR | V=0.35545pu | unc=0.179
+2026-11-12 21:38:55,102 [PSSE] t=3.981s | dt=2.0ms | skip_emt=False | P=75.03MW, Q=24.99MVAR | V=0.72106pu | unc=0.196
+2026-11-12 21:38:55,555 [PSSE] t=3.994s | dt=2.0ms | skip_emt=False | P=103.71MW, Q=27.56MVAR | V=0.82861pu | unc=0.000
+2026-11-12 21:38:55,992 [PSSE] t=4.007s | dt=2.0ms | skip_emt=False | P=98.49MW, Q=26.74MVAR | V=0.37080pu | unc=0.203
+2026-11-12 21:38:56,365 [PSSE] t=4.022s | dt=2.0ms | skip_emt=False | P=112.51MW, Q=26.74MVAR | V=0.88928pu | unc=0.173
+2026-11-12 21:38:56,799 [PSSE] t=4.034s | dt=2.0ms | skip_emt=False | P=128.38MW, Q=27.62MVAR | V=0.31697pu | unc=0.000
+2026-11-12 21:38:56,863 [PSSE] Time gate reached (120s). Finalizing PSS/E federate cleanly at t=4.036s...
+2026-11-12 21:38:56,863 [PSSE] Co-simulation steps: total=2981, emt_calls=2879, emt_skipped=102 (bypass_ratio=3.4%)
+2026-11-12 21:38:56,863 [PSSE] PSS/E channel output written to: helios_psse_channels.out
+2026-11-12 21:38:56,863 [PSSE] Co-simulation complete. Finalizing PSS/E federate...
+C:\Users\vamisra\AppData\Roaming\Python\Python313\site-packages\helics\capi.py:4444: UserWarning: This function is deprecated. Use `helicsFederateDisconnect` instead.
+  warnings.warn("This function is deprecated. Use `helicsFederateDisconnect` instead.")
+2026-11-12 21:38:56,985 [PSSE] PSS/E federate finalized cleanly
+2026-11-12 21:38:56,986 [PSSE] Reading output channels for summary...
+2026-11-12 21:38:57,019 [PSSE] Slack bus frequency range: -1.2209 -- 0.2857 Hz
+2026-11-12 21:38:57,019 [PSSE] Frequency nadir: -1.2209 Hz (deviation: -61.2209 Hz)

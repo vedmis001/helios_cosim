@@ -1,0 +1,4 @@
+[2026-11-12 21:38:56.863] [console] [warning] commWarning||23012-5orE2-lWb4T-1u86J-bFHOW (1)[operating]::unknown route and no broker, dropping message pub:From (131073) handle(2) size 16 at 4.035537651 to 131072
+[2026-11-12 21:38:56.865] [console] [warning] commWarning||23012-5orE2-lWb4T-1u86J-bFHOW (1)[operating]::unknown route and no broker, dropping message pub:From (131073) handle(3) size 16 at 4.035537651 to 131072
+[2026-11-12 21:38:56.865] [console] [warning] commWarning||23012-5orE2-lWb4T-1u86J-bFHOW (1)[operating]::unknown route and no broker, dropping message pub:From (131073) handle(4) size 16 at 4.035537651 to 131072
+[2026-11-12 21:38:56.865] [console] [warning] commWarning||23012-5orE2-lWb4T-1u86J-bFHOW (1)[operating]::unknown route and no broker, dropping message pub:From (131073) handle(5) size 9 at 4.035537651 to 131072
